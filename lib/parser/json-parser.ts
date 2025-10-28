@@ -12,49 +12,89 @@ import { normalizeUsername } from '@/lib/utils/username-normalizer';
  */
 export function parseJSON(content: string): ParsedUser[] {
   const users: ParsedUser[] = [];
-  
+
   try {
-    const data: InstagramJSONData = JSON.parse(content);
+    const data = JSON.parse(content);
+    console.log('JSON Parser: Parsed data type:', Array.isArray(data) ? 'array' : typeof data);
     
-    // Coba berbagai key yang mungkin ada di Instagram export
-    const possibleKeys: (keyof InstagramJSONData)[] = [
-      'followers',
-      'relationships_following',
-      'following',
-      'list'
-    ];
-    
-    for (const key of possibleKeys) {
-      const entries = data[key];
+    if (typeof data === 'object' && data !== null && !Array.isArray(data)) {
+      console.log('JSON Parser: Object keys:', Object.keys(data));
+    }
+
+    // Helper function to extract users from an array of entries
+    const extractUsersFromArray = (entries: any[], source: string = 'unknown') => {
+      console.log(`JSON Parser: Extracting from ${source}, entries count:`, entries.length);
+      let extracted = 0;
       
-      if (Array.isArray(entries)) {
-        for (const entry of entries) {
-          // Instagram export biasanya punya struktur string_list_data
-          if (entry.string_list_data && Array.isArray(entry.string_list_data)) {
-            for (const item of entry.string_list_data) {
-              // Prioritas: value > href
-              const rawValue = item.value || item.href;
-              
-              if (rawValue) {
-                const username = normalizeUsername(rawValue);
-                
-                if (username) {
-                  users.push({
-                    username,
-                    originalValue: rawValue
-                  });
-                }
+      for (const entry of entries) {
+        // Instagram export biasanya punya struktur string_list_data
+        if (entry.string_list_data && Array.isArray(entry.string_list_data)) {
+          for (const item of entry.string_list_data) {
+            // Prioritas: value > title > href
+            // value: digunakan di followers_1.json
+            // title: digunakan di following.json (relationships_following)
+            // href: fallback untuk format lama
+            const rawValue = item.value || item.title || item.href;
+
+            if (rawValue) {
+              const username = normalizeUsername(rawValue);
+
+              if (username) {
+                users.push({
+                  username,
+                  originalValue: rawValue
+                });
+                extracted++;
               }
             }
           }
         }
+        // Juga cek jika username ada langsung di entry.title (untuk following.json)
+        else if (entry.title) {
+          const username = normalizeUsername(entry.title);
+          if (username) {
+            users.push({
+              username,
+              originalValue: entry.title
+            });
+            extracted++;
+          }
+        }
+      }
+      
+      console.log(`JSON Parser: Extracted ${extracted} users from ${source}`);
+    };
+
+    // Case 1: Data adalah array langsung (format Instagram terbaru)
+    if (Array.isArray(data)) {
+      console.log('JSON Parser: Processing as direct array');
+      extractUsersFromArray(data, 'direct-array');
+    }
+    // Case 2: Data adalah object dengan key
+    else if (typeof data === 'object' && data !== null) {
+      // Coba berbagai key yang mungkin ada di Instagram export
+      const possibleKeys = [
+        'followers',
+        'relationships_following',
+        'following',
+        'list'
+      ];
+
+      for (const key of possibleKeys) {
+        const entries = (data as any)[key];
+
+        if (Array.isArray(entries)) {
+          console.log(`JSON Parser: Found key '${key}' with ${entries.length} entries`);
+          extractUsersFromArray(entries, key);
+        }
       }
     }
-    
+
   } catch (error) {
     // Jika JSON.parse gagal atau struktur tidak sesuai, return empty array
     console.error('Error parsing JSON:', error);
   }
-  
+
+  console.log(`JSON Parser: Extracted ${users.length} users`);
   return users;
 }

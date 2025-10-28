@@ -17,9 +17,23 @@ export function analyzeFollowers(
   followingData: string[],
   currentUsername?: string
 ): AnalysisResults {
+  console.log('📊 analyzeFollowers input:', {
+    followersDataLength: followersData.length,
+    followingDataLength: followingData.length,
+    sampleFollowers: followersData.slice(0, 3),
+    sampleFollowing: followingData.slice(0, 3)
+  });
+  
   // Step 1: Deduplikasi input arrays
   const followersDedup = mergeAndDeduplicate([followersData]);
   const followingDedup = mergeAndDeduplicate([followingData]);
+  
+  console.log('📊 After dedup:', {
+    followersMergedLength: followersDedup.merged.length,
+    followingMergedLength: followingDedup.merged.length,
+    followersDuplicates: followersDedup.duplicatesRemoved,
+    followingDuplicates: followingDedup.duplicatesRemoved
+  });
   
   const totalDuplicatesRemoved = 
     followersDedup.duplicatesRemoved + followingDedup.duplicatesRemoved;
@@ -27,6 +41,11 @@ export function analyzeFollowers(
   // Step 2: Create Sets dari deduplicated arrays
   const followersSet = new Set(followersDedup.merged);
   const followingSet = new Set(followingDedup.merged);
+  
+  console.log('📊 After creating Sets:', {
+    followersSetSize: followersSet.size,
+    followingSetSize: followingSet.size
+  });
   
   // Step 3: Remove current username jika ada
   if (currentUsername) {

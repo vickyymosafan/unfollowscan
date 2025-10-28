@@ -22,10 +22,16 @@ export function normalizeUsername(input: string): string {
   if (normalized.includes('instagram.com')) {
     try {
       // Extract path dari URL
-      // Handle berbagai format: https://instagram.com/username, instagram.com/username, dll
-      const urlMatch = normalized.match(/instagram\.com\/([^/?#]+)/);
-      if (urlMatch && urlMatch[1]) {
-        normalized = urlMatch[1];
+      // Handle format: instagram.com/_u/username (format baru)
+      const urlMatchNew = normalized.match(/instagram\.com\/_u\/([^/?#]+)/);
+      if (urlMatchNew && urlMatchNew[1]) {
+        normalized = urlMatchNew[1];
+      } else {
+        // Handle format lama: instagram.com/username
+        const urlMatch = normalized.match(/instagram\.com\/([^/?#]+)/);
+        if (urlMatch && urlMatch[1]) {
+          normalized = urlMatch[1];
+        }
       }
     } catch (error) {
       // Jika gagal parse URL, lanjutkan dengan string processing
