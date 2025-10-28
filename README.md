@@ -188,6 +188,6 @@ Jika Anda menemukan bug atau memiliki saran, silakan buat [issue](https://github
 
 **⭐ Jangan lupa beri star jika project ini membantu Anda! ⭐**
 
-Made with ❤️ by [Vicky Mosafan](https://www.linkedin.com/in/vickymosafan/)
+Made by [Vicky Mosafan](https://www.linkedin.com/in/vickymosafan/)
 
 </div>
