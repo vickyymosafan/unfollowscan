@@ -60,32 +60,43 @@ export default function ResultTabs({ activeTab, onTabChange, counts }: ResultTab
   }, [activeTab, currentIndex]);
 
   return (
-    <div className="flex gap-2 border-b border-[#DADDE1]" role="tablist" aria-label="Kategori hasil">
-      {tabs.map((tab, index) => {
-        const isActive = tab.id === activeTab;
-        
-        return (
-          <button
-            key={tab.id}
-            ref={(el) => {
-              tabRefs.current[index] = el;
-            }}
-            role="tab"
-            aria-selected={isActive}
-            aria-controls={`tabpanel-${tab.id}`}
-            tabIndex={isActive ? 0 : -1}
-            onClick={() => onTabChange(tab.id)}
-            onKeyDown={(e) => handleKeyDown(e, index)}
-            className={`px-4 py-2 rounded-t-lg font-medium transition-colors focus:outline-none focus:ring-2 focus:ring-[#111315] focus:ring-offset-2 ${
-              isActive
-                ? 'bg-[#111315] text-[#F7F7F8]'
-                : 'bg-transparent text-[#111315] hover:bg-gray-100'
-            }`}
-          >
-            {tab.label} ({formatNumber(tab.count)})
-          </button>
-        );
-      })}
+    <div className="bg-white rounded-2xl p-2 border border-[#DADDE1] shadow-sm" role="tablist" aria-label="Kategori hasil">
+      <div className="flex flex-col sm:flex-row gap-2">
+        {tabs.map((tab, index) => {
+          const isActive = tab.id === activeTab;
+          
+          return (
+            <button
+              key={tab.id}
+              ref={(el) => {
+                tabRefs.current[index] = el;
+              }}
+              role="tab"
+              aria-selected={isActive}
+              aria-controls={`tabpanel-${tab.id}`}
+              tabIndex={isActive ? 0 : -1}
+              onClick={() => onTabChange(tab.id)}
+              onKeyDown={(e) => handleKeyDown(e, index)}
+              className={`flex-1 px-4 py-3 rounded-xl font-medium transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-[#111315] focus:ring-offset-2 ${
+                isActive
+                  ? 'bg-[#111315] text-[#F7F7F8] shadow-lg scale-105'
+                  : 'bg-transparent text-gray-600 hover:bg-gray-50 hover:text-[#111315]'
+              }`}
+            >
+              <div className="flex flex-col sm:flex-row items-center justify-center gap-1 sm:gap-2">
+                <span className="text-sm sm:text-base">{tab.label}</span>
+                <span className={`inline-flex items-center justify-center min-w-[2rem] px-2 py-0.5 rounded-full text-xs font-semibold ${
+                  isActive
+                    ? 'bg-white/20 text-white'
+                    : 'bg-gray-100 text-gray-600'
+                }`}>
+                  {formatNumber(tab.count)}
+                </span>
+              </div>
+            </button>
+          );
+        })}
+      </div>
     </div>
   );
 }

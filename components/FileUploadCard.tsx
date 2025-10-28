@@ -112,8 +112,15 @@ export default function FileUploadCard({
   const canProcess = followersFiles.length > 0 && followingFiles.length > 0 && !isProcessing;
 
   return (
-    <div className="bg-[#F7F7F8] rounded-2xl p-6 border border-[#DADDE1]">
-      <h2 className="text-xl font-semibold text-[#111315] mb-6">Unggah File Instagram</h2>
+    <div id="upload" className="bg-white rounded-3xl p-6 md:p-8 border border-[#DADDE1] shadow-xl">
+      <div className="flex items-center gap-3 mb-6">
+        <div className="w-10 h-10 bg-gradient-to-br from-blue-500 to-purple-600 rounded-xl flex items-center justify-center">
+          <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" />
+          </svg>
+        </div>
+        <h2 className="text-2xl font-bold text-[#111315]">Unggah File Instagram</h2>
+      </div>
 
       {/* Upload Areas */}
       <div className="space-y-6 mb-6">
@@ -123,10 +130,10 @@ export default function FileUploadCard({
             File Followers
           </label>
           <div
-            className={`border-2 border-dashed rounded-lg p-6 text-center cursor-pointer transition-colors ${
+            className={`relative border-2 border-dashed rounded-2xl p-8 text-center cursor-pointer transition-all duration-300 ${
               dragOverFollowers
-                ? 'border-[#111315] bg-gray-100'
-                : 'border-[#DADDE1] hover:border-[#111315]'
+                ? 'border-blue-500 bg-blue-50 scale-105 shadow-lg'
+                : 'border-[#DADDE1] hover:border-blue-400 hover:bg-blue-50/50'
             }`}
             onDragOver={(e) => handleDragOver(e, 'followers')}
             onDragLeave={(e) => handleDragLeave(e, 'followers')}
@@ -143,10 +150,18 @@ export default function FileUploadCard({
               onChange={(e) => handleInputChange(e, 'followers')}
               aria-label="Pilih file followers"
             />
-            <p className="text-gray-600">
+            
+            {/* Upload Icon */}
+            <div className="inline-flex items-center justify-center w-16 h-16 bg-blue-100 rounded-2xl mb-4">
+              <svg className="w-8 h-8 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" />
+              </svg>
+            </div>
+            
+            <p className="text-base font-medium text-gray-700 mb-1">
               Klik atau seret file followers ke sini
             </p>
-            <p className="text-xs text-gray-500 mt-1">
+            <p className="text-sm text-gray-500">
               Format: JSON atau HTML
             </p>
           </div>
@@ -182,10 +197,10 @@ export default function FileUploadCard({
             File Following
           </label>
           <div
-            className={`border-2 border-dashed rounded-lg p-6 text-center cursor-pointer transition-colors ${
+            className={`relative border-2 border-dashed rounded-2xl p-8 text-center cursor-pointer transition-all duration-300 ${
               dragOverFollowing
-                ? 'border-[#111315] bg-gray-100'
-                : 'border-[#DADDE1] hover:border-[#111315]'
+                ? 'border-purple-500 bg-purple-50 scale-105 shadow-lg'
+                : 'border-[#DADDE1] hover:border-purple-400 hover:bg-purple-50/50'
             }`}
             onDragOver={(e) => handleDragOver(e, 'following')}
             onDragLeave={(e) => handleDragLeave(e, 'following')}
@@ -202,10 +217,18 @@ export default function FileUploadCard({
               onChange={(e) => handleInputChange(e, 'following')}
               aria-label="Pilih file following"
             />
-            <p className="text-gray-600">
+            
+            {/* Upload Icon */}
+            <div className="inline-flex items-center justify-center w-16 h-16 bg-purple-100 rounded-2xl mb-4">
+              <svg className="w-8 h-8 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" />
+              </svg>
+            </div>
+            
+            <p className="text-base font-medium text-gray-700 mb-1">
               Klik atau seret file following ke sini
             </p>
-            <p className="text-xs text-gray-500 mt-1">
+            <p className="text-sm text-gray-500">
               Format: JSON atau HTML
             </p>
           </div>
@@ -250,31 +273,40 @@ export default function FileUploadCard({
         <button
           onClick={onProcess}
           disabled={!canProcess}
-          className={`px-6 py-2 rounded-lg font-medium transition-opacity focus:outline-none focus:ring-2 focus:ring-offset-2 ${
+          className={`flex items-center gap-2 px-8 py-3 rounded-xl font-semibold transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 ${
             canProcess
-              ? 'bg-[#111315] text-[#F7F7F8] hover:opacity-90 focus:ring-[#111315]'
-              : 'bg-gray-300 text-gray-500 cursor-not-allowed'
+              ? 'bg-gradient-to-r from-blue-600 to-purple-600 text-white hover:shadow-lg hover:scale-105 focus:ring-blue-500'
+              : 'bg-gray-200 text-gray-400 cursor-not-allowed'
           }`}
           aria-label="Proses file"
         >
+          <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
+          </svg>
           Proses
         </button>
 
         <button
           onClick={onSwap}
           disabled={followersFiles.length === 0 && followingFiles.length === 0}
-          className="px-6 py-2 rounded-lg font-medium border border-[#DADDE1] text-[#111315] hover:bg-gray-100 disabled:opacity-50 disabled:cursor-not-allowed focus:outline-none focus:ring-2 focus:ring-[#111315] focus:ring-offset-2"
+          className="flex items-center gap-2 px-6 py-3 rounded-xl font-medium border-2 border-[#DADDE1] text-[#111315] hover:border-[#111315] hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed focus:outline-none focus:ring-2 focus:ring-[#111315] focus:ring-offset-2 transition-all"
           aria-label="Tukar posisi file"
         >
-          Tukar file
+          <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 16V4m0 0L3 8m4-4l4 4m6 0v12m0 0l4-4m-4 4l-4-4" />
+          </svg>
+          Tukar
         </button>
 
         <button
           onClick={onReset}
           disabled={followersFiles.length === 0 && followingFiles.length === 0}
-          className="px-6 py-2 rounded-lg font-medium border border-[#DADDE1] text-[#111315] hover:bg-gray-100 disabled:opacity-50 disabled:cursor-not-allowed focus:outline-none focus:ring-2 focus:ring-[#111315] focus:ring-offset-2"
+          className="flex items-center gap-2 px-6 py-3 rounded-xl font-medium border-2 border-[#DADDE1] text-[#111315] hover:border-red-400 hover:bg-red-50 hover:text-red-600 disabled:opacity-50 disabled:cursor-not-allowed focus:outline-none focus:ring-2 focus:ring-[#111315] focus:ring-offset-2 transition-all"
           aria-label="Reset semua file"
         >
+          <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+          </svg>
           Reset
         </button>
       </div>

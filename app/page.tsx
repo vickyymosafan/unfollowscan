@@ -145,17 +145,22 @@ export default function Home() {
   };
 
   return (
-    <div className="min-h-screen bg-[#F7F7F8]">
+    <div className="min-h-screen bg-gradient-to-br from-gray-50 via-blue-50/30 to-purple-50/30">
       <Header />
       
-      <main className="container mx-auto px-4 py-8 space-y-8 max-w-6xl">
+      <main className="container mx-auto px-4 py-8 space-y-12 max-w-6xl">
         <Hero />
         
         <InfoBanner />
         
         {error && (
-          <div className="bg-red-50 border border-red-200 rounded-lg p-4">
-            <p className="text-sm text-red-700">{error}</p>
+          <div className="bg-red-50 border-2 border-red-200 rounded-2xl p-5 shadow-sm">
+            <div className="flex items-start gap-3">
+              <svg className="w-6 h-6 text-red-500 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
+              <p className="text-sm text-red-700 font-medium">{error}</p>
+            </div>
           </div>
         )}
         
@@ -170,7 +175,12 @@ export default function Home() {
         />
         
         {results && (
-          <>
+          <div className="space-y-8">
+            <div className="text-center">
+              <h2 className="text-3xl font-bold text-[#111315] mb-2">📊 Hasil Analisis</h2>
+              <p className="text-gray-600">Berikut adalah ringkasan analisis followers dan following Kamu</p>
+            </div>
+            
             <StatsSummary
               stats={{
                 totalFollowers: results.stats.totalFollowers,
@@ -181,7 +191,7 @@ export default function Home() {
               }}
             />
             
-            <div className="space-y-4">
+            <div className="space-y-6">
               <ResultTabs
                 activeTab={activeTab}
                 onTabChange={handleTabChange}
@@ -197,7 +207,7 @@ export default function Home() {
                 category={activeTab}
               />
             </div>
-          </>
+          </div>
         )}
       </main>
       
