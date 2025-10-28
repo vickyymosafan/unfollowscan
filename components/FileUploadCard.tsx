@@ -83,7 +83,7 @@ export default function FileUploadCard({
   const handleDrop = (e: DragEvent<HTMLDivElement>, type: 'followers' | 'following') => {
     e.preventDefault();
     e.stopPropagation();
-    
+
     if (type === 'followers') {
       setDragOverFollowers(false);
     } else {
@@ -130,11 +130,10 @@ export default function FileUploadCard({
             File Followers
           </label>
           <div
-            className={`relative border-2 border-dashed rounded-2xl p-8 text-center cursor-pointer transition-all duration-300 ${
-              dragOverFollowers
-                ? 'border-blue-500 bg-blue-50 scale-105 shadow-lg'
-                : 'border-[#DADDE1] hover:border-blue-400 hover:bg-blue-50/50'
-            }`}
+            className={`relative border-2 border-dashed rounded-2xl p-8 text-center cursor-pointer transition-all duration-300 ${dragOverFollowers
+              ? 'border-blue-500 bg-blue-50 scale-105 shadow-lg'
+              : 'border-[#DADDE1] hover:border-blue-400 hover:bg-blue-50/50'
+              }`}
             onDragOver={(e) => handleDragOver(e, 'followers')}
             onDragLeave={(e) => handleDragLeave(e, 'followers')}
             onDrop={(e) => handleDrop(e, 'followers')}
@@ -150,14 +149,14 @@ export default function FileUploadCard({
               onChange={(e) => handleInputChange(e, 'followers')}
               aria-label="Pilih file followers"
             />
-            
+
             {/* Upload Icon */}
             <div className="inline-flex items-center justify-center w-16 h-16 bg-blue-100 rounded-2xl mb-4">
               <svg className="w-8 h-8 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" />
               </svg>
             </div>
-            
+
             <p className="text-base font-medium text-gray-700 mb-1">
               Klik atau seret file followers ke sini
             </p>
@@ -197,11 +196,10 @@ export default function FileUploadCard({
             File Following
           </label>
           <div
-            className={`relative border-2 border-dashed rounded-2xl p-8 text-center cursor-pointer transition-all duration-300 ${
-              dragOverFollowing
-                ? 'border-purple-500 bg-purple-50 scale-105 shadow-lg'
-                : 'border-[#DADDE1] hover:border-purple-400 hover:bg-purple-50/50'
-            }`}
+            className={`relative border-2 border-dashed rounded-2xl p-8 text-center cursor-pointer transition-all duration-300 ${dragOverFollowing
+              ? 'border-purple-500 bg-purple-50 scale-105 shadow-lg'
+              : 'border-[#DADDE1] hover:border-purple-400 hover:bg-purple-50/50'
+              }`}
             onDragOver={(e) => handleDragOver(e, 'following')}
             onDragLeave={(e) => handleDragLeave(e, 'following')}
             onDrop={(e) => handleDrop(e, 'following')}
@@ -217,14 +215,14 @@ export default function FileUploadCard({
               onChange={(e) => handleInputChange(e, 'following')}
               aria-label="Pilih file following"
             />
-            
+
             {/* Upload Icon */}
             <div className="inline-flex items-center justify-center w-16 h-16 bg-purple-100 rounded-2xl mb-4">
               <svg className="w-8 h-8 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" />
               </svg>
             </div>
-            
+
             <p className="text-base font-medium text-gray-700 mb-1">
               Klik atau seret file following ke sini
             </p>
@@ -261,10 +259,29 @@ export default function FileUploadCard({
 
       {/* Processing Indicator */}
       {isProcessing && (
-        <div className="mb-6 p-4 bg-blue-50 border border-blue-200 rounded-lg">
-          <p className="text-sm text-gray-700 text-center">
-            Memproses file...
-          </p>
+        <div className="mb-6 p-6 bg-gradient-to-r from-blue-50 to-purple-50 border-2 border-blue-200 rounded-2xl shadow-sm">
+          <div className="flex flex-col items-center justify-center gap-4">
+            <div className="flex items-center gap-4">
+              <div className="relative">
+                <div className="w-10 h-10 border-4 border-blue-200 border-t-blue-600 rounded-full animate-spin"></div>
+              </div>
+              <div className="text-left">
+                <p className="text-base font-semibold text-gray-800">
+                  Sedang memproses file...
+                </p>
+                <p className="text-sm text-gray-600 mt-1">
+                  Hasil akan muncul di bawah setelah selesai
+                </p>
+              </div>
+            </div>
+            {/* Animated arrow pointing down */}
+            <div className="flex flex-col items-center gap-1 animate-bounce mt-2">
+              <svg className="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
+              </svg>
+              <span className="text-xs text-blue-600 font-medium">Lihat hasil di bawah</span>
+            </div>
+          </div>
         </div>
       )}
 
@@ -273,11 +290,10 @@ export default function FileUploadCard({
         <button
           onClick={onProcess}
           disabled={!canProcess}
-          className={`flex items-center gap-2 px-8 py-3 rounded-xl font-semibold transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 ${
-            canProcess
-              ? 'bg-gradient-to-r from-blue-600 to-purple-600 text-white hover:shadow-lg hover:scale-105 focus:ring-blue-500'
-              : 'bg-gray-200 text-gray-400 cursor-not-allowed'
-          }`}
+          className={`flex items-center gap-2 px-8 py-3 rounded-xl font-semibold transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 ${canProcess
+            ? 'bg-gradient-to-r from-blue-600 to-purple-600 text-white hover:shadow-lg hover:scale-105 focus:ring-blue-500'
+            : 'bg-gray-200 text-gray-400 cursor-not-allowed'
+            }`}
           aria-label="Proses file"
         >
           <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">

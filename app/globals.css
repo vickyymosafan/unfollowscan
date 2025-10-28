@@ -58,3 +58,58 @@ body {
 .animation-delay-4000 {
   animation-delay: 4s;
 }
+
+/* Fade in animation for results */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Scroll padding for better positioning */
+html {
+  scroll-padding-top: 100px;
+}
+
+/* Add stagger animation for children */
+.animate-fade-in > * {
+  animation: fadeIn 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+  animation-fill-mode: both;
+}
+
+.animate-fade-in > *:nth-child(1) {
+  animation-delay: 0.1s;
+}
+
+.animate-fade-in > *:nth-child(2) {
+  animation-delay: 0.2s;
+}
+
+.animate-fade-in > *:nth-child(3) {
+  animation-delay: 0.3s;
+}
+
+/* Smooth bounce animation for scroll indicator */
+@keyframes bounceSlow {
+  0%, 100% {
+    transform: translateY(0);
+    animation-timing-function: cubic-bezier(0.8, 0, 1, 1);
+  }
+  50% {
+    transform: translateY(10px);
+    animation-timing-function: cubic-bezier(0, 0, 0.2, 1);
+  }
+}
+
+.animate-bounce-slow {
+  animation: bounceSlow 2s infinite;
+}

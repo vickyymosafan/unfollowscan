@@ -16,6 +16,11 @@ export const metadata: Metadata = {
   title: "Cek Siapa yang Tidak Follow Balik - Instagram Follower Analyzer",
   description: "Analisis followers Instagram Anda secara privat. Cek siapa yang tidak follow balik, mutual followers, dan fans. Semua proses di perangkat Anda.",
   keywords: ["instagram", "followers", "following", "tidak follow balik", "mutual", "analyzer"],
+  icons: {
+    icon: "/Logo.svg",
+    shortcut: "/Logo.svg",
+    apple: "/Logo.svg",
+  },
   other: {
     language: "id",
   },

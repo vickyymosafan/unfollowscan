@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import Header from '@/components/Header';
 import Hero from '@/components/Hero';
 import InfoBanner from '@/components/InfoBanner';
@@ -15,6 +15,9 @@ import { analyzeFollowers } from '@/lib/analysis/follower-analyzer';
 import { AnalysisResults, ERROR_MESSAGES } from '@/lib/types';
 
 export default function Home() {
+  // Refs
+  const resultsRef = useRef<HTMLDivElement>(null);
+
   // State management
   const [followersFiles, setFollowersFiles] = useState<File[]>([]);
   const [followingFiles, setFollowingFiles] = useState<File[]>([]);
@@ -98,6 +101,39 @@ export default function Home() {
 
       // Step 5: Update results
       setResults(analysisResults);
+
+      // Step 6: Ultra smooth scroll to results
+      setTimeout(() => {
+        if (resultsRef.current) {
+          const targetPosition = resultsRef.current.getBoundingClientRect().top + window.pageYOffset - 100;
+          const startPosition = window.pageYOffset;
+          const distance = targetPosition - startPosition;
+          const duration = 1200; // 1.2 detik untuk scroll yang sangat smooth
+          let start: number | null = null;
+
+          // Easing function untuk smooth scroll
+          const easeInOutCubic = (t: number): number => {
+            return t < 0.5 
+              ? 4 * t * t * t 
+              : 1 - Math.pow(-2 * t + 2, 3) / 2;
+          };
+
+          const animation = (currentTime: number) => {
+            if (start === null) start = currentTime;
+            const timeElapsed = currentTime - start;
+            const progress = Math.min(timeElapsed / duration, 1);
+            const ease = easeInOutCubic(progress);
+            
+            window.scrollTo(0, startPosition + distance * ease);
+            
+            if (timeElapsed < duration) {
+              requestAnimationFrame(animation);
+            }
+          };
+
+          requestAnimationFrame(animation);
+        }
+      }, 400);
     } catch (err) {
       console.error('Error processing files:', err);
       setError(ERROR_MESSAGES.PARSE_ERROR);
@@ -175,8 +211,16 @@ export default function Home() {
         />
         
         {results && (
-          <div className="space-y-8">
-            <div className="text-center">
+          <div ref={resultsRef} className="space-y-8 scroll-mt-24">
+            <div className="text-center animate-fade-in">
+              <div className="inline-block mb-4 px-4 py-2 bg-green-100 border-2 border-green-300 rounded-full">
+                <span className="text-green-700 font-semibold text-sm flex items-center gap-2">
+                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                  </svg>
+                  Proses Selesai!
+                </span>
+              </div>
               <h2 className="text-3xl font-bold text-[#111315] mb-2">📊 Hasil Analisis</h2>
               <p className="text-gray-600">Berikut adalah ringkasan analisis followers dan following Kamu</p>
             </div>
@@ -190,6 +234,24 @@ export default function Home() {
                 fans: results.fans.length,
               }}
             />
+
+            {/* Scroll Indicator */}
+            <div className="flex flex-col items-center gap-3 py-6 animate-fade-in">
+              <div className="bg-gradient-to-r from-blue-50 to-purple-50 border-2 border-blue-200 rounded-2xl px-6 py-4 shadow-sm">
+                <p className="text-center text-gray-700 font-medium flex items-center gap-2">
+                  <svg className="w-5 h-5 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                  </svg>
+                  Scroll ke bawah untuk melihat siapa saja yang tidak follow balik
+                </p>
+              </div>
+              <div className="animate-bounce-slow">
+                <svg className="w-8 h-8 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
+                </svg>
+              </div>
+            </div>
             
             <div className="space-y-6">
               <ResultTabs
