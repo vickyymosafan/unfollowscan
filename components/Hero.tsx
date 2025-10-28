@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import AnimatedGuideButton from './AnimatedGuideButton';
+import AnimatedStartButton from './AnimatedStartButton';
 
 export default function Hero() {
   return (
@@ -35,16 +36,7 @@ export default function Hero() {
 
           {/* CTA Buttons */}
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-            <a
-              href="#upload"
-              className="inline-flex items-center gap-2 bg-[#111315] text-[#F7F7F8] rounded-xl px-8 py-4 font-medium hover:opacity-90 transition-all hover:scale-105 focus:outline-none focus:ring-2 focus:ring-[#111315] focus:ring-offset-2 shadow-lg"
-            >
-              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" />
-              </svg>
-              Mulai Sekarang
-            </a>
-
+            <AnimatedStartButton />
             <AnimatedGuideButton />
           </div>
 
