@@ -28,27 +28,61 @@ export default function PanduanPage() {
               <li>Pilih format <strong>"JSON"</strong> (direkomendasikan) dan rentang tanggal "Sepanjang waktu" untuk data lengkap</li>
               <li>Klik "Buat file" dan tunggu email dari Instagram (biasanya membutuhkan waktu 1-2 hari)</li>
               <li>Buka email dari Instagram dan klik link untuk download file ZIP</li>
-              <li>Extract file ZIP yang sudah didownload dan cari folder "connections" atau "followers_and_following"</li>
-              <li>Upload file followers dan following dari folder tersebut ke website ini</li>
+              <li>
+                <strong>Extract file ZIP</strong> yang sudah didownload:
+                <ul className="ml-6 mt-2 space-y-1 list-disc">
+                  <li>Klik kanan file ZIP → Extract All atau Extract Here</li>
+                  <li>Buka folder hasil extract</li>
+                  <li>Cari dan buka folder <strong>"connections"</strong></li>
+                  <li>Di dalam folder connections, buka folder <strong>"followers_and_following"</strong></li>
+                </ul>
+              </li>
+              <li>
+                Di dalam folder <strong>followers_and_following</strong>, Kamu akan melihat beberapa file. Pilih dan upload <strong>2 file ini saja</strong>:
+                <ul className="ml-6 mt-2 space-y-1 list-disc">
+                  <li><strong>followers_1.json</strong> (file data followers Kamu)</li>
+                  <li><strong>following.json</strong> (file data following Kamu)</li>
+                </ul>
+              </li>
+              <li>Upload kedua file tersebut ke website ini dan klik tombol "Proses" untuk melihat hasilnya</li>
             </ol>
             
             <div className="mt-8 p-4 bg-blue-50 border border-blue-200 rounded-lg">
               <h2 className="text-lg font-semibold text-[#111315] mb-2">
-                Catatan Penting
+                📌 Catatan Penting
               </h2>
               <ul className="space-y-2 text-sm text-gray-700 list-disc list-inside">
                 <li>
                   <strong>Format JSON direkomendasikan</strong> karena lebih mudah diproses dan lebih akurat
                 </li>
                 <li>
-                  Instagram kadang membagi file menjadi beberapa bagian (misalnya: followers_1.json, followers_2.json). 
-                  Kamu bisa mengunggah semua file sekaligus, sistem akan menggabungkannya secara otomatis
+                  <strong>Lokasi file yang benar:</strong> ZIP → connections → followers_and_following → pilih <code className="bg-gray-200 px-1 rounded">followers_1.json</code> dan <code className="bg-gray-200 px-1 rounded">following.json</code>
+                </li>
+                <li>
+                  Jika ada file <code className="bg-gray-200 px-1 rounded">followers_2.json</code>, <code className="bg-gray-200 px-1 rounded">followers_3.json</code>, dll, Kamu bisa upload semuanya sekaligus. Sistem akan menggabungkannya otomatis
                 </li>
                 <li>
                   Proses download dari Instagram bisa memakan waktu 1-2 hari tergantung ukuran data Kamu
                 </li>
                 <li>
-                  Semua data diproses di perangkat Kamu. Website ini tidak menyimpan atau mengirim data Kamu ke server
+                  <strong>100% Privasi Terjamin:</strong> Semua data diproses di browser Kamu. Website ini tidak menyimpan atau mengirim data Kamu ke server manapun
+                </li>
+              </ul>
+            </div>
+            
+            <div className="mt-6 p-4 bg-yellow-50 border border-yellow-200 rounded-lg">
+              <h2 className="text-lg font-semibold text-[#111315] mb-2">
+                ⚠️ Kesalahan Umum
+              </h2>
+              <ul className="space-y-2 text-sm text-gray-700 list-disc list-inside">
+                <li>
+                  <strong>Jangan upload file ZIP langsung</strong> - Extract dulu file ZIP-nya
+                </li>
+                <li>
+                  <strong>Jangan upload semua file</strong> - Hanya upload <code className="bg-gray-200 px-1 rounded">followers_1.json</code> dan <code className="bg-gray-200 px-1 rounded">following.json</code>
+                </li>
+                <li>
+                  <strong>Pastikan masuk ke folder yang benar</strong> - connections → followers_and_following
                 </li>
               </ul>
             </div>
