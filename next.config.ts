@@ -8,6 +8,11 @@ const nextConfig: NextConfig = {
   
   // Add trailing slash to URLs for better compatibility
   trailingSlash: true,
+  
+  // Enable styled-components
+  compiler: {
+    styledComponents: true,
+  },
 };
 
 export default nextConfig;

@@ -99,7 +99,9 @@ npm start
 
 - **Framework**: [Next.js 16](https://nextjs.org/) - React framework untuk production
 - **Language**: [TypeScript](https://www.typescriptlang.org/) - Type-safe JavaScript
-- **Styling**: [Tailwind CSS](https://tailwindcss.com/) - Utility-first CSS framework
+- **Styling**: 
+  - [Tailwind CSS](https://tailwindcss.com/) - Utility-first CSS framework
+  - [Styled Components](https://styled-components.com/) - CSS-in-JS untuk komponen interaktif
 - **Font**: [Geist](https://vercel.com/font) - Modern font family dari Vercel
 
 ---
