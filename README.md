@@ -60,8 +60,8 @@ Pastikan Anda sudah menginstall:
 ### Clone Repository
 
 ```bash
-git clone https://github.com/username/instagram-follower-analyzer.git
-cd instagram-follower-analyzer
+git clone https://github.com/vickyymosafan/unfollowscan.git
+cd unfollowscan.git
 ```
 
 ### Install Dependencies
@@ -179,7 +179,7 @@ Distributed under the MIT License. See `LICENSE` for more information.
 
 ## 📞 Support
 
-Jika Anda menemukan bug atau memiliki saran, silakan buat [issue](https://github.com/username/instagram-follower-analyzer/issues) di GitHub.
+Jika Anda menemukan bug atau memiliki saran, silakan buat [issue](https://github.com/vickyymosafan/unfollowscan.git/issues) di GitHub.
 
 ---
 
