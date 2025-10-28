@@ -173,7 +173,6 @@ Distributed under the MIT License. See `LICENSE` for more information.
 
 - [Next.js](https://nextjs.org/) - Amazing React framework
 - [Tailwind CSS](https://tailwindcss.com/) - Beautiful utility-first CSS
-- [Vercel](https://vercel.com/) - Best deployment platform
 - Instagram - For the data export feature
 
 ---
