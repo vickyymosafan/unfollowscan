@@ -5,6 +5,7 @@ import { FileUploadCardProps } from '@/lib/types';
 import { validateFileType } from '@/lib/utils/file-reader';
 import GlowButton from './GlowButton';
 import SwapButton from './SwapButton';
+import ResetButton from './ResetButton';
 
 export default function FileUploadCard({
   onFilesSelected,
@@ -311,17 +312,10 @@ export default function FileUploadCard({
           Tukar
         </SwapButton>
 
-        <button
+        <ResetButton
           onClick={onReset}
           disabled={followersFiles.length === 0 && followingFiles.length === 0}
-          className="flex items-center gap-2 px-6 py-3 rounded-xl font-medium border-2 border-[#DADDE1] text-[#111315] hover:border-red-400 hover:bg-red-50 hover:text-red-600 disabled:opacity-50 disabled:cursor-not-allowed focus:outline-none focus:ring-2 focus:ring-[#111315] focus:ring-offset-2 transition-all"
-          aria-label="Reset semua file"
-        >
-          <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
-          </svg>
-          Reset
-        </button>
+        />
       </div>
     </div>
   );
