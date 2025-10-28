@@ -2,7 +2,7 @@ import Link from 'next/link';
 
 export default function Header() {
   return (
-    <header className="sticky top-0 z-50 bg-[#111315]/95 backdrop-blur-sm text-[#F7F7F8] border-b border-gray-800 shadow-lg">
+    <header className="sticky top-0 z-50 bg-shark-950 backdrop-blur-sm text-shark-50 border-b border-shark-800 shadow-lg">
       <div className="container mx-auto px-4 py-4">
         <div className="flex items-center justify-between">
           {/* Logo/Brand */}
@@ -12,7 +12,7 @@ export default function Header() {
             </div>
             <div className="hidden sm:block">
               <div className="text-base font-bold leading-tight">Cek Follow Balik</div>
-              <div className="text-xs text-gray-400">Instagram Analyzer</div>
+              <div className="text-xs text-shark-400">Instagram Analyzer</div>
             </div>
           </Link>
 
@@ -20,17 +20,17 @@ export default function Header() {
           <nav>
             <ul className="flex gap-2">
               <li>
-                <Link 
-                  href="/" 
-                  className="px-4 py-2 rounded-lg hover:bg-white/10 transition-colors focus:outline-none focus:ring-2 focus:ring-[#F7F7F8] focus:ring-offset-2 focus:ring-offset-[#111315] text-sm font-medium"
+                <Link
+                  href="/"
+                  className="px-4 py-2 rounded-lg hover:bg-shark-800 transition-colors focus:outline-none focus:ring-2 focus:ring-shark-400 focus:ring-offset-2 focus:ring-offset-shark-950 text-sm font-medium"
                 >
                   Beranda
                 </Link>
               </li>
               <li>
-                <Link 
-                  href="/panduan" 
-                  className="px-4 py-2 rounded-lg hover:bg-white/10 transition-colors focus:outline-none focus:ring-2 focus:ring-[#F7F7F8] focus:ring-offset-2 focus:ring-offset-[#111315] text-sm font-medium"
+                <Link
+                  href="/panduan"
+                  className="px-4 py-2 rounded-lg hover:bg-shark-800 transition-colors focus:outline-none focus:ring-2 focus:ring-shark-400 focus:ring-offset-2 focus:ring-offset-shark-950 text-sm font-medium"
                 >
                   Panduan
                 </Link>

@@ -60,7 +60,7 @@ export default function ResultTabs({ activeTab, onTabChange, counts }: ResultTab
   }, [activeTab, currentIndex]);
 
   return (
-    <div className="bg-white rounded-2xl p-2 border border-[#DADDE1] shadow-sm" role="tablist" aria-label="Kategori hasil">
+    <div className="bg-white rounded-2xl p-2 border border-shark-300 shadow-sm" role="tablist" aria-label="Kategori hasil">
       <div className="flex flex-col sm:flex-row gap-2">
         {tabs.map((tab, index) => {
           const isActive = tab.id === activeTab;
@@ -77,18 +77,18 @@ export default function ResultTabs({ activeTab, onTabChange, counts }: ResultTab
               tabIndex={isActive ? 0 : -1}
               onClick={() => onTabChange(tab.id)}
               onKeyDown={(e) => handleKeyDown(e, index)}
-              className={`flex-1 px-4 py-3 rounded-xl font-medium transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-[#111315] focus:ring-offset-2 ${
+              className={`flex-1 px-4 py-3 rounded-xl font-medium transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-shark-700 focus:ring-offset-2 ${
                 isActive
-                  ? 'bg-[#111315] text-[#F7F7F8] shadow-lg scale-105'
-                  : 'bg-transparent text-gray-600 hover:bg-gray-50 hover:text-[#111315]'
+                  ? 'bg-shark-950 text-shark-50 shadow-lg scale-105'
+                  : 'bg-transparent text-shark-700 hover:bg-shark-100 hover:text-shark-950'
               }`}
             >
               <div className="flex flex-col sm:flex-row items-center justify-center gap-1 sm:gap-2">
                 <span className="text-sm sm:text-base">{tab.label}</span>
                 <span className={`inline-flex items-center justify-center min-w-[2rem] px-2 py-0.5 rounded-full text-xs font-semibold ${
                   isActive
-                    ? 'bg-white/20 text-white'
-                    : 'bg-gray-100 text-gray-600'
+                    ? 'bg-shark-700 text-shark-50'
+                    : 'bg-shark-200 text-shark-800'
                 }`}>
                   {formatNumber(tab.count)}
                 </span>

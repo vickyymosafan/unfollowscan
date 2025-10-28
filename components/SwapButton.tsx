@@ -40,7 +40,7 @@ const StyledWrapper = styled.div`
 
   .button-content {
     color: transparent;
-    -webkit-text-stroke: 1px rgba(20, 156, 234, 0.6);
+    -webkit-text-stroke: 1px rgba(93, 93, 93, 0.6);
     display: flex;
     align-items: center;
     gap: 0.5em;
@@ -49,13 +49,13 @@ const StyledWrapper = styled.div`
   .hover-text {
     position: absolute;
     box-sizing: border-box;
-    color: #149CEA;
+    color: #5d5d5d;
     width: 0%;
     inset: 0;
-    border-right: 6px solid #149CEA;
+    border-right: 6px solid #5d5d5d;
     overflow: hidden;
     transition: 0.5s;
-    -webkit-text-stroke: 1px #149CEA;
+    -webkit-text-stroke: 1px #5d5d5d;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -64,7 +64,7 @@ const StyledWrapper = styled.div`
 
   button:hover:not(:disabled) .hover-text {
     width: 100%;
-    filter: drop-shadow(0 0 23px #149CEA);
+    filter: drop-shadow(0 0 23px #888888);
   }
 
   button:disabled {

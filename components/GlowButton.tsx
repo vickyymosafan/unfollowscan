@@ -20,13 +20,12 @@ const GlowButton: React.FC<GlowButtonProps> = ({ onClick, disabled, children, ar
 
 const StyledWrapper = styled.div`
   button {
-    --glow-color: rgb(217, 176, 255);
-    --glow-spread-color: rgba(191, 123, 255, 0.781);
-    --enhanced-glow-color: rgb(231, 206, 255);
-    --btn-color: rgb(100, 61, 136);
+    --glow-color: #d1d1d1;
+    --glow-spread-color: rgba(177, 177, 177, 0.5);
+    --btn-color: #5d5d5d;
     border: .25em solid var(--glow-color);
     padding: 1em 3em;
-    color: var(--glow-color);
+    color: #f6f6f6;
     font-size: 15px;
     font-weight: bold;
     background-color: var(--btn-color);
@@ -59,7 +58,7 @@ const StyledWrapper = styled.div`
   }
 
   button:hover:not(:disabled) {
-    color: var(--btn-color);
+    color: #222222;
     background-color: var(--glow-color);
     box-shadow: 0 0 1em .25em var(--glow-color),
       0 0 4em 2em var(--glow-spread-color),

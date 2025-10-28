@@ -155,7 +155,7 @@ export default function Home() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-50 via-blue-50/30 to-purple-50/30">
+    <div className="min-h-screen bg-shark-50">
       <Header />
       
       <main className="container mx-auto px-4 py-8 space-y-12 max-w-6xl">
@@ -164,12 +164,12 @@ export default function Home() {
         <InfoBanner />
         
         {error && (
-          <div className="bg-red-50 border-2 border-red-200 rounded-2xl p-5 shadow-sm">
+          <div className="bg-shark-100 border-2 border-shark-300 rounded-2xl p-5 shadow-sm">
             <div className="flex items-start gap-3">
-              <svg className="w-6 h-6 text-red-500 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <svg className="w-6 h-6 text-shark-700 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
               </svg>
-              <p className="text-sm text-red-700 font-medium">{error}</p>
+              <p className="text-sm text-shark-800 font-medium">{error}</p>
             </div>
           </div>
         )}
@@ -187,16 +187,16 @@ export default function Home() {
         {results && (
           <div ref={resultsRef} className="space-y-8 scroll-mt-24">
             <div className="text-center animate-fade-in">
-              <div className="inline-block mb-4 px-4 py-2 bg-green-100 border-2 border-green-300 rounded-full">
-                <span className="text-green-700 font-semibold text-sm flex items-center gap-2">
+              <div className="inline-block mb-4 px-4 py-2 bg-shark-200 border-2 border-shark-400 rounded-full">
+                <span className="text-shark-900 font-semibold text-sm flex items-center gap-2">
                   <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
                   </svg>
                   Proses Selesai!
                 </span>
               </div>
-              <h2 className="text-3xl font-bold text-[#111315] mb-2">📊 Hasil Analisis</h2>
-              <p className="text-gray-600">Berikut adalah ringkasan analisis followers dan following Kamu</p>
+              <h2 className="text-3xl font-bold text-shark-950 mb-2">📊 Hasil Analisis</h2>
+              <p className="text-shark-700">Berikut adalah ringkasan analisis followers dan following Kamu</p>
             </div>
             
             <StatsSummary
@@ -211,9 +211,9 @@ export default function Home() {
 
             {/* Scroll Indicator */}
             <div className="flex flex-col items-center gap-3 py-6 animate-fade-in">
-              <div className="bg-gradient-to-r from-blue-50 to-purple-50 border-2 border-blue-200 rounded-2xl px-6 py-4 shadow-sm">
-                <p className="text-center text-gray-700 font-medium flex items-center gap-2">
-                  <svg className="w-5 h-5 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <div className="bg-shark-100 border-2 border-shark-300 rounded-2xl px-6 py-4 shadow-sm">
+                <p className="text-center text-shark-800 font-medium flex items-center gap-2">
+                  <svg className="w-5 h-5 text-shark-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
                   </svg>
@@ -221,7 +221,7 @@ export default function Home() {
                 </p>
               </div>
               <div className="animate-bounce-slow">
-                <svg className="w-8 h-8 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg className="w-8 h-8 text-shark-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
                 </svg>
               </div>

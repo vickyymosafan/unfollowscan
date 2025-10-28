@@ -28,7 +28,7 @@ const StyledWrapper = styled.div`
     width: 50px;
     height: 50px;
     border-radius: 50%;
-    background-color: rgb(20, 20, 20);
+    background-color: #222222;
     border: none;
     font-weight: 600;
     display: flex;
@@ -52,14 +52,14 @@ const StyledWrapper = styled.div`
   }
 
   .svgIcon path {
-    fill: white;
+    fill: #f6f6f6;
   }
 
   .button:hover:not(:disabled) {
     width: 140px;
     border-radius: 50px;
     transition-duration: .3s;
-    background-color: rgb(255, 69, 69);
+    background-color: #6d6d6d;
     align-items: center;
   }
 
@@ -73,7 +73,7 @@ const StyledWrapper = styled.div`
     position: absolute;
     top: -20px;
     content: "Delete";
-    color: white;
+    color: #f6f6f6;
     transition-duration: .3s;
     font-size: 2px;
   }

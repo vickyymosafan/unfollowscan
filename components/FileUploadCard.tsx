@@ -115,27 +115,27 @@ export default function FileUploadCard({
   const canProcess = followersFiles.length > 0 && followingFiles.length > 0 && !isProcessing;
 
   return (
-    <div id="upload" className="bg-white rounded-3xl p-6 md:p-8 border border-[#DADDE1] shadow-xl">
+    <div id="upload" className="bg-white rounded-3xl p-6 md:p-8 border border-shark-300 shadow-xl">
       <div className="flex items-center gap-3 mb-6">
-        <div className="w-10 h-10 bg-gradient-to-br from-blue-500 to-purple-600 rounded-xl flex items-center justify-center">
-          <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <div className="w-10 h-10 bg-shark-700 rounded-xl flex items-center justify-center">
+          <svg className="w-6 h-6 text-shark-50" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" />
           </svg>
         </div>
-        <h2 className="text-2xl font-bold text-[#111315]">Unggah File Instagram</h2>
+        <h2 className="text-2xl font-bold text-shark-950">Unggah File Instagram</h2>
       </div>
 
       {/* Upload Areas */}
       <div className="space-y-6 mb-6">
         {/* Followers Upload */}
         <div>
-          <label htmlFor="followers-input" className="block text-sm font-medium text-[#111315] mb-2">
+          <label htmlFor="followers-input" className="block text-sm font-medium text-shark-950 mb-2">
             File Followers
           </label>
           <div
             className={`relative border-2 border-dashed rounded-2xl p-8 text-center cursor-pointer transition-all duration-300 ${dragOverFollowers
-              ? 'border-blue-500 bg-blue-50 scale-105 shadow-lg'
-              : 'border-[#DADDE1] hover:border-blue-400 hover:bg-blue-50/50'
+              ? 'border-shark-600 bg-shark-100 scale-105 shadow-lg'
+              : 'border-shark-300 hover:border-shark-500 hover:bg-shark-50'
               }`}
             onDragOver={(e) => handleDragOver(e, 'followers')}
             onDragLeave={(e) => handleDragLeave(e, 'followers')}
@@ -154,16 +154,16 @@ export default function FileUploadCard({
             />
 
             {/* Upload Icon */}
-            <div className="inline-flex items-center justify-center w-16 h-16 bg-blue-100 rounded-2xl mb-4">
-              <svg className="w-8 h-8 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <div className="inline-flex items-center justify-center w-16 h-16 bg-shark-200 rounded-2xl mb-4">
+              <svg className="w-8 h-8 text-shark-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" />
               </svg>
             </div>
 
-            <p className="text-base font-medium text-gray-700 mb-1">
+            <p className="text-base font-medium text-shark-800 mb-1">
               Klik atau seret file followers ke sini
             </p>
-            <p className="text-sm text-gray-500">
+            <p className="text-sm text-shark-600">
               Format: JSON atau HTML
             </p>
           </div>
@@ -172,10 +172,10 @@ export default function FileUploadCard({
           {followersFiles.length > 0 && (
             <div className="mt-3 space-y-1">
               {followersFiles.map((file, index) => (
-                <div key={index} className="text-sm text-gray-700 flex items-center gap-2">
-                  <span className="text-green-600">✓</span>
+                <div key={index} className="text-sm text-shark-800 flex items-center gap-2">
+                  <span className="text-shark-700">✓</span>
                   <span>{file.name}</span>
-                  <span className="text-xs text-gray-500">(terbaca)</span>
+                  <span className="text-xs text-shark-600">(terbaca)</span>
                 </div>
               ))}
             </div>
@@ -185,7 +185,7 @@ export default function FileUploadCard({
           {errors.followers.length > 0 && (
             <div className="mt-3 space-y-1">
               {errors.followers.map((error, index) => (
-                <p key={index} className="text-sm text-red-600">
+                <p key={index} className="text-sm text-shark-800">
                   {error}
                 </p>
               ))}
@@ -195,13 +195,13 @@ export default function FileUploadCard({
 
         {/* Following Upload */}
         <div>
-          <label htmlFor="following-input" className="block text-sm font-medium text-[#111315] mb-2">
+          <label htmlFor="following-input" className="block text-sm font-medium text-shark-950 mb-2">
             File Following
           </label>
           <div
             className={`relative border-2 border-dashed rounded-2xl p-8 text-center cursor-pointer transition-all duration-300 ${dragOverFollowing
-              ? 'border-purple-500 bg-purple-50 scale-105 shadow-lg'
-              : 'border-[#DADDE1] hover:border-purple-400 hover:bg-purple-50/50'
+              ? 'border-shark-600 bg-shark-100 scale-105 shadow-lg'
+              : 'border-shark-300 hover:border-shark-500 hover:bg-shark-50'
               }`}
             onDragOver={(e) => handleDragOver(e, 'following')}
             onDragLeave={(e) => handleDragLeave(e, 'following')}
@@ -220,16 +220,16 @@ export default function FileUploadCard({
             />
 
             {/* Upload Icon */}
-            <div className="inline-flex items-center justify-center w-16 h-16 bg-purple-100 rounded-2xl mb-4">
-              <svg className="w-8 h-8 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <div className="inline-flex items-center justify-center w-16 h-16 bg-shark-200 rounded-2xl mb-4">
+              <svg className="w-8 h-8 text-shark-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" />
               </svg>
             </div>
 
-            <p className="text-base font-medium text-gray-700 mb-1">
+            <p className="text-base font-medium text-shark-800 mb-1">
               Klik atau seret file following ke sini
             </p>
-            <p className="text-sm text-gray-500">
+            <p className="text-sm text-shark-600">
               Format: JSON atau HTML
             </p>
           </div>
@@ -238,10 +238,10 @@ export default function FileUploadCard({
           {followingFiles.length > 0 && (
             <div className="mt-3 space-y-1">
               {followingFiles.map((file, index) => (
-                <div key={index} className="text-sm text-gray-700 flex items-center gap-2">
-                  <span className="text-green-600">✓</span>
+                <div key={index} className="text-sm text-shark-800 flex items-center gap-2">
+                  <span className="text-shark-700">✓</span>
                   <span>{file.name}</span>
-                  <span className="text-xs text-gray-500">(terbaca)</span>
+                  <span className="text-xs text-shark-600">(terbaca)</span>
                 </div>
               ))}
             </div>
@@ -251,7 +251,7 @@ export default function FileUploadCard({
           {errors.following.length > 0 && (
             <div className="mt-3 space-y-1">
               {errors.following.map((error, index) => (
-                <p key={index} className="text-sm text-red-600">
+                <p key={index} className="text-sm text-shark-800">
                   {error}
                 </p>
               ))}
@@ -262,27 +262,27 @@ export default function FileUploadCard({
 
       {/* Processing Indicator */}
       {isProcessing && (
-        <div className="mb-6 p-6 bg-gradient-to-r from-blue-50 to-purple-50 border-2 border-blue-200 rounded-2xl shadow-sm">
+        <div className="mb-6 p-6 bg-shark-100 border-2 border-shark-300 rounded-2xl shadow-sm">
           <div className="flex flex-col items-center justify-center gap-4">
             <div className="flex items-center gap-4">
               <div className="relative">
-                <div className="w-10 h-10 border-4 border-blue-200 border-t-blue-600 rounded-full animate-spin"></div>
+                <div className="w-10 h-10 border-4 border-shark-300 border-t-shark-700 rounded-full animate-spin"></div>
               </div>
               <div className="text-left">
-                <p className="text-base font-semibold text-gray-800">
+                <p className="text-base font-semibold text-shark-900">
                   Sedang memproses file...
                 </p>
-                <p className="text-sm text-gray-600 mt-1">
+                <p className="text-sm text-shark-700 mt-1">
                   Hasil akan muncul di bawah setelah selesai
                 </p>
               </div>
             </div>
             {/* Animated arrow pointing down */}
             <div className="flex flex-col items-center gap-1 animate-bounce mt-2">
-              <svg className="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <svg className="w-6 h-6 text-shark-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
               </svg>
-              <span className="text-xs text-blue-600 font-medium">Lihat hasil di bawah</span>
+              <span className="text-xs text-shark-700 font-medium">Lihat hasil di bawah</span>
             </div>
           </div>
         </div>

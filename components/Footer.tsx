@@ -2,13 +2,13 @@ export default function Footer() {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer className="bg-[#111315] text-[#F7F7F8]">
+    <footer className="bg-shark-950 text-shark-50">
       <div className="container mx-auto px-4 py-8">
         <div className="max-w-4xl mx-auto">
           {/* Main Content */}
           <div className="text-center mb-6">
             <h3 className="text-lg font-semibold mb-2">Cek Siapa yang Tidak Follow Balik</h3>
-            <p className="text-sm text-gray-400">
+            <p className="text-sm text-shark-400">
               Tool gratis untuk menganalisis followers dan following Instagram Anda
             </p>
           </div>
@@ -19,7 +19,7 @@ export default function Footer() {
               href="https://github.com/vickyymosafan"
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center gap-2 text-gray-300 hover:text-white transition-colors"
+              className="flex items-center gap-2 text-shark-300 hover:text-shark-50 transition-colors"
               aria-label="GitHub"
             >
               <svg
@@ -37,7 +37,7 @@ export default function Footer() {
               href="https://www.linkedin.com/in/vickymosafan/"
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center gap-2 text-gray-300 hover:text-white transition-colors"
+              className="flex items-center gap-2 text-shark-300 hover:text-shark-50 transition-colors"
               aria-label="LinkedIn"
             >
               <svg
@@ -55,7 +55,7 @@ export default function Footer() {
               href="https://www.instagram.com/viicsyy/"
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center gap-2 text-gray-300 hover:text-white transition-colors"
+              className="flex items-center gap-2 text-shark-300 hover:text-shark-50 transition-colors"
               aria-label="Instagram"
             >
               <svg
@@ -71,22 +71,22 @@ export default function Footer() {
           </div>
 
           {/* Divider */}
-          <div className="border-t border-gray-700 mb-4"></div>
+          <div className="border-t border-shark-800 mb-4"></div>
 
           {/* Copyright */}
           <div className="text-center">
-            <p className="text-sm text-gray-400">
+            <p className="text-sm text-shark-400">
               © {currentYear} Cek Siapa yang Tidak Follow Balik. Dibuat oleh{' '}
               <a
                 href="https://www.linkedin.com/in/vickymosafan/"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-white hover:underline"
+                className="text-shark-50 hover:underline"
               >
                 Vicky Mosafan
               </a>
             </p>
-            <p className="text-xs text-gray-500 mt-2">
+            <p className="text-xs text-shark-500 mt-2">
               Data Anda diproses secara lokal di browser. Kami tidak menyimpan data Anda.
             </p>
           </div>

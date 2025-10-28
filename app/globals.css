@@ -2,25 +2,41 @@
 
 :root {
   --background: #ffffff;
-  --foreground: #171717;
-  --soft-black: #111315;
-  --soft-white: #F7F7F8;
-  --abu: #DADDE1;
+  --foreground: #222222;
+  --color-shark-50: #f6f6f6;
+  --color-shark-100: #e7e7e7;
+  --color-shark-200: #d1d1d1;
+  --color-shark-300: #b0b0b0;
+  --color-shark-400: #888888;
+  --color-shark-500: #6d6d6d;
+  --color-shark-600: #5d5d5d;
+  --color-shark-700: #4f4f4f;
+  --color-shark-800: #454545;
+  --color-shark-900: #3d3d3d;
+  --color-shark-950: #222222;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --color-soft-black: var(--soft-black);
-  --color-soft-white: var(--soft-white);
-  --color-abu: var(--abu);
+  --color-shark-50: var(--color-shark-50);
+  --color-shark-100: var(--color-shark-100);
+  --color-shark-200: var(--color-shark-200);
+  --color-shark-300: var(--color-shark-300);
+  --color-shark-400: var(--color-shark-400);
+  --color-shark-500: var(--color-shark-500);
+  --color-shark-600: var(--color-shark-600);
+  --color-shark-700: var(--color-shark-700);
+  --color-shark-800: var(--color-shark-800);
+  --color-shark-900: var(--color-shark-900);
+  --color-shark-950: var(--color-shark-950);
   --font-sans: var(--font-geist-sans);
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    --background: #222222;
+    --foreground: #f6f6f6;
   }
 }
 
@@ -31,32 +47,6 @@ body {
 }
 
 /* Animations */
-@keyframes blob {
-  0% {
-    transform: translate(0px, 0px) scale(1);
-  }
-  33% {
-    transform: translate(30px, -50px) scale(1.1);
-  }
-  66% {
-    transform: translate(-20px, 20px) scale(0.9);
-  }
-  100% {
-    transform: translate(0px, 0px) scale(1);
-  }
-}
-
-.animate-blob {
-  animation: blob 7s infinite;
-}
-
-.animation-delay-2000 {
-  animation-delay: 2s;
-}
-
-.animation-delay-4000 {
-  animation-delay: 4s;
-}
 
 /* Fade in animation for results */
 @keyframes fadeIn {
