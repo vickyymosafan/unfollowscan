@@ -1,4 +1,3 @@
-import Link from 'next/link';
 import AnimatedGuideButton from './AnimatedGuideButton';
 import AnimatedStartButton from './AnimatedStartButton';
 

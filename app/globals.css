@@ -15,7 +15,6 @@
   --color-soft-white: var(--soft-white);
   --color-abu: var(--abu);
   --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
 }
 
 @media (prefers-color-scheme: dark) {
