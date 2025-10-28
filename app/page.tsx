@@ -1,65 +1,181 @@
-import Image from "next/image";
+'use client';
+
+import { useState } from 'react';
+import Header from '@/components/Header';
+import Hero from '@/components/Hero';
+import InfoBanner from '@/components/InfoBanner';
+import FileUploadCard from '@/components/FileUploadCard';
+import StatsSummary from '@/components/StatsSummary';
+import ResultTabs from '@/components/ResultTabs';
+import ResultTable from '@/components/ResultTable';
+import Footer from '@/components/Footer';
+import { readMultipleFiles } from '@/lib/utils/file-reader';
+import { parseInstagramFile } from '@/lib/parser/instagram-parser';
+import { analyzeFollowers } from '@/lib/analysis/follower-analyzer';
+import { AnalysisResults, ERROR_MESSAGES } from '@/lib/types';
 
 export default function Home() {
+  // State management
+  const [followersFiles, setFollowersFiles] = useState<File[]>([]);
+  const [followingFiles, setFollowingFiles] = useState<File[]>([]);
+  const [isProcessing, setIsProcessing] = useState(false);
+  const [results, setResults] = useState<AnalysisResults | null>(null);
+  const [error, setError] = useState<string | null>(null);
+  const [activeTab, setActiveTab] = useState<'tidak-follow-balik' | 'fans' | 'mutual'>('tidak-follow-balik');
+
+  // Handler: File selection
+  const handleFilesSelected = (followers: File[], following: File[]) => {
+    setFollowersFiles(followers);
+    setFollowingFiles(following);
+    setError(null);
+  };
+
+  // Handler: Process files
+  const handleProcess = async () => {
+    // Validate that both files are uploaded
+    if (followersFiles.length === 0 || followingFiles.length === 0) {
+      setError(ERROR_MESSAGES.MISSING_FILES);
+      return;
+    }
+
+    setIsProcessing(true);
+    setError(null);
+
+    try {
+      // Step 1: Read all files
+      const followersContents = await readMultipleFiles(followersFiles);
+      const followingContents = await readMultipleFiles(followingFiles);
+
+      // Step 2: Parse all files
+      const followersParsed = followersContents.flatMap((content) =>
+        parseInstagramFile(content, 'auto')
+      );
+      const followingParsed = followingContents.flatMap((content) =>
+        parseInstagramFile(content, 'auto')
+      );
+
+      // Step 3: Extract usernames
+      const followersUsernames = followersParsed.map((user) => user.username);
+      const followingUsernames = followingParsed.map((user) => user.username);
+
+      // Check if we got any data
+      if (followersUsernames.length === 0 && followingUsernames.length === 0) {
+        setError(ERROR_MESSAGES.NO_DATA_FOUND);
+        return;
+      }
+
+      // Step 4: Analyze
+      const analysisResults = analyzeFollowers(
+        followersUsernames,
+        followingUsernames
+      );
+
+      // Step 5: Update results
+      setResults(analysisResults);
+    } catch (err) {
+      console.error('Error processing files:', err);
+      setError(ERROR_MESSAGES.PARSE_ERROR);
+    } finally {
+      setIsProcessing(false);
+    }
+  };
+
+  // Handler: Reset
+  const handleReset = () => {
+    setFollowersFiles([]);
+    setFollowingFiles([]);
+    setResults(null);
+    setError(null);
+    setIsProcessing(false);
+    setActiveTab('tidak-follow-balik');
+  };
+
+  // Handler: Swap files
+  const handleSwap = () => {
+    const tempFollowers = followersFiles;
+    setFollowersFiles(followingFiles);
+    setFollowingFiles(tempFollowers);
+  };
+
+  // Handler: Tab change
+  const handleTabChange = (tab: 'tidak-follow-balik' | 'fans' | 'mutual') => {
+    setActiveTab(tab);
+  };
+
+  // Get data for current tab
+  const getCurrentTabData = (): string[] => {
+    if (!results) return [];
+    
+    switch (activeTab) {
+      case 'tidak-follow-balik':
+        return results.tidakFollowBalik;
+      case 'fans':
+        return results.fans;
+      case 'mutual':
+        return results.mutual;
+      default:
+        return [];
+    }
+  };
+
   return (
-    <div className="flex min-h-screen items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex min-h-screen w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
+    <div className="min-h-screen bg-[#F7F7F8]">
+      <Header />
+      
+      <main className="container mx-auto px-4 py-8 space-y-8 max-w-6xl">
+        <Hero />
+        
+        <InfoBanner />
+        
+        {error && (
+          <div className="bg-red-50 border border-red-200 rounded-lg p-4">
+            <p className="text-sm text-red-700">{error}</p>
+          </div>
+        )}
+        
+        <FileUploadCard
+          onFilesSelected={handleFilesSelected}
+          onProcess={handleProcess}
+          onReset={handleReset}
+          onSwap={handleSwap}
+          isProcessing={isProcessing}
+          followersFiles={followersFiles}
+          followingFiles={followingFiles}
         />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
-        </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
+        
+        {results && (
+          <>
+            <StatsSummary
+              stats={{
+                totalFollowers: results.stats.totalFollowers,
+                totalFollowing: results.stats.totalFollowing,
+                mutual: results.mutual.length,
+                tidakFollowBalik: results.tidakFollowBalik.length,
+                fans: results.fans.length,
+              }}
             />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
+            
+            <div className="space-y-4">
+              <ResultTabs
+                activeTab={activeTab}
+                onTabChange={handleTabChange}
+                counts={{
+                  tidakFollowBalik: results.tidakFollowBalik.length,
+                  fans: results.fans.length,
+                  mutual: results.mutual.length,
+                }}
+              />
+              
+              <ResultTable
+                data={getCurrentTabData()}
+                category={activeTab}
+              />
+            </div>
+          </>
+        )}
       </main>
+      
+      <Footer />
     </div>
   );
 }
