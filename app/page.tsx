@@ -61,11 +61,6 @@ export default function Home() {
       const followersUsernames = followersParsed.map((user) => user.username);
       const followingUsernames = followingParsed.map((user) => user.username);
 
-      console.log('Parsed followers:', followersUsernames.length);
-      console.log('Parsed following:', followingUsernames.length);
-      console.log('Sample followers:', followersUsernames.slice(0, 5));
-      console.log('Sample following:', followingUsernames.slice(0, 5));
-
       // Check if we got any data
       if (followersUsernames.length === 0 && followingUsernames.length === 0) {
         setError(ERROR_MESSAGES.NO_DATA_FOUND);
@@ -73,31 +68,10 @@ export default function Home() {
       }
 
       // Step 4: Analyze
-      console.log('🔥 Calling analyzeFollowers with:', {
-        followersCount: followersUsernames.length,
-        followingCount: followingUsernames.length
-      });
-      
       const analysisResults = analyzeFollowers(
         followersUsernames,
         followingUsernames
       );
-      
-      console.log('🔥 analyzeFollowers returned:', {
-        followersSetSize: analysisResults.followers.size,
-        followingSetSize: analysisResults.following.size,
-        tidakFollowBalikLength: analysisResults.tidakFollowBalik.length,
-        mutualLength: analysisResults.mutual.length,
-        fansLength: analysisResults.fans.length
-      });
-
-      console.log('Analysis results:', {
-        followers: analysisResults.stats.totalFollowers,
-        following: analysisResults.stats.totalFollowing,
-        tidakFollowBalik: analysisResults.tidakFollowBalik.length,
-        mutual: analysisResults.mutual.length,
-        fans: analysisResults.fans.length,
-      });
 
       // Step 5: Update results
       setResults(analysisResults);
