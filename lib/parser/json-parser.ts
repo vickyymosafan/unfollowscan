@@ -15,15 +15,9 @@ export function parseJSON(content: string): ParsedUser[] {
 
   try {
     const data = JSON.parse(content);
-    console.log('JSON Parser: Parsed data type:', Array.isArray(data) ? 'array' : typeof data);
-    
-    if (typeof data === 'object' && data !== null && !Array.isArray(data)) {
-      console.log('JSON Parser: Object keys:', Object.keys(data));
-    }
 
     // Helper function to extract users from an array of entries
-    const extractUsersFromArray = (entries: any[], source: string = 'unknown') => {
-      console.log(`JSON Parser: Extracting from ${source}, entries count:`, entries.length);
+    const extractUsersFromArray = (entries: any[]) => {
       let extracted = 0;
       
       for (const entry of entries) {
@@ -61,14 +55,11 @@ export function parseJSON(content: string): ParsedUser[] {
           }
         }
       }
-      
-      console.log(`JSON Parser: Extracted ${extracted} users from ${source}`);
     };
 
     // Case 1: Data adalah array langsung (format Instagram terbaru)
     if (Array.isArray(data)) {
-      console.log('JSON Parser: Processing as direct array');
-      extractUsersFromArray(data, 'direct-array');
+      extractUsersFromArray(data);
     }
     // Case 2: Data adalah object dengan key
     else if (typeof data === 'object' && data !== null) {
@@ -84,8 +75,7 @@ export function parseJSON(content: string): ParsedUser[] {
         const entries = (data as any)[key];
 
         if (Array.isArray(entries)) {
-          console.log(`JSON Parser: Found key '${key}' with ${entries.length} entries`);
-          extractUsersFromArray(entries, key);
+          extractUsersFromArray(entries);
         }
       }
     }
@@ -95,6 +85,5 @@ export function parseJSON(content: string): ParsedUser[] {
     console.error('Error parsing JSON:', error);
   }
 
-  console.log(`JSON Parser: Extracted ${users.length} users`);
   return users;
 }

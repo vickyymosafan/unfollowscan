@@ -4,6 +4,7 @@ import { useState, useRef, ChangeEvent, DragEvent } from 'react';
 import { FileUploadCardProps } from '@/lib/types';
 import { validateFileType } from '@/lib/utils/file-reader';
 import GlowButton from './GlowButton';
+import SwapButton from './SwapButton';
 
 export default function FileUploadCard({
   onFilesSelected,
@@ -299,17 +300,16 @@ export default function FileUploadCard({
           Proses
         </GlowButton>
 
-        <button
+        <SwapButton
           onClick={onSwap}
           disabled={followersFiles.length === 0 && followingFiles.length === 0}
-          className="flex items-center gap-2 px-6 py-3 rounded-xl font-medium border-2 border-[#DADDE1] text-[#111315] hover:border-[#111315] hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed focus:outline-none focus:ring-2 focus:ring-[#111315] focus:ring-offset-2 transition-all"
-          aria-label="Tukar posisi file"
+          ariaLabel="Tukar posisi file"
         >
-          <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 16V4m0 0L3 8m4-4l4 4m6 0v12m0 0l4-4m-4 4l-4-4" />
           </svg>
           Tukar
-        </button>
+        </SwapButton>
 
         <button
           onClick={onReset}

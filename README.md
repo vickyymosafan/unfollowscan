@@ -19,13 +19,6 @@
 
 ---
 
-## 📸 Screenshot
-
-![Hero Section](docs/screenshot-hero.png)
-![Hasil Analisis](docs/screenshot-results.png)
-
----
-
 ## 🚀 Cara Menggunakan
 
 ### 1️⃣ Ekspor Data Instagram
