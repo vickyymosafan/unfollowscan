@@ -1,10 +1,7 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  // Enable static export for deployment without Node.js server
-  output: 'export',
-  
-  // Disable image optimization for static export
+  // Configuration for Vercel deployment
   images: {
     unoptimized: true,
   },
