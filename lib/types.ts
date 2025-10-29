@@ -88,16 +88,6 @@ export const ERROR_MESSAGES: Record<ErrorType, string> = {
 };
 
 // Component Props Interfaces
-export interface FileUploadCardProps {
-  onFilesSelected: (followers: File[], following: File[]) => void;
-  onProcess: () => void;
-  onReset: () => void;
-  onSwap: () => void;
-  isProcessing: boolean;
-  followersFiles: File[];
-  followingFiles: File[];
-}
-
 export interface StatsSummaryProps {
   stats: {
     totalFollowers: number;

@@ -1,118 +1,48 @@
 'use client';
 
-import { useState, useRef, ChangeEvent, DragEvent } from 'react';
-import { FileUploadCardProps } from '@/lib/types';
-import { validateFileType } from '@/lib/utils/file-reader';
+import { useFileUpload } from '@/lib/hooks/useFileUpload';
 import { UploadIcon, LightningIcon, SwapIcon, ArrowDownIcon } from '@/lib/icons';
 import GlowButton from './GlowButton';
 import SwapButton from './SwapButton';
 import ResetButton from './ResetButton';
 
+interface FileUploadCardProps {
+  onProcess: (followersFiles: File[], followingFiles: File[]) => void;
+  onReset: () => void;
+  isProcessing: boolean;
+}
+
 export default function FileUploadCard({
-  onFilesSelected,
   onProcess,
   onReset,
-  onSwap,
   isProcessing,
-  followersFiles,
-  followingFiles,
 }: FileUploadCardProps) {
-  const [dragOverFollowers, setDragOverFollowers] = useState(false);
-  const [dragOverFollowing, setDragOverFollowing] = useState(false);
-  const [errors, setErrors] = useState<{ followers: string[]; following: string[] }>({
-    followers: [],
-    following: [],
-  });
+  const {
+    followersFiles,
+    followingFiles,
+    errors,
+    dragOverFollowers,
+    dragOverFollowing,
+    followersInputRef,
+    followingInputRef,
+    handleDragOver,
+    handleDragLeave,
+    handleDrop,
+    handleInputChange,
+    triggerFileInput,
+    swapFiles,
+    resetFiles,
+  } = useFileUpload();
 
-  const followersInputRef = useRef<HTMLInputElement>(null);
-  const followingInputRef = useRef<HTMLInputElement>(null);
-
-  // Handle file selection and validation
-  const handleFileSelection = (files: FileList | null, type: 'followers' | 'following') => {
-    if (!files || files.length === 0) return;
-
-    const fileArray = Array.from(files);
-    const validationErrors: string[] = [];
-    const validFiles: File[] = [];
-
-    // Validate each file
-    fileArray.forEach((file) => {
-      const validation = validateFileType(file);
-      if (validation.isValid) {
-        validFiles.push(file);
-      } else {
-        validationErrors.push(`${file.name}: ${validation.error}`);
-      }
-    });
-
-    // Update errors
-    setErrors((prev) => ({
-      ...prev,
-      [type]: validationErrors,
-    }));
-
-    // Combine with existing files
-    const existingFiles = type === 'followers' ? followersFiles : followingFiles;
-    const allFiles = [...existingFiles, ...validFiles];
-
-    // Call parent callback with updated files
-    if (type === 'followers') {
-      onFilesSelected(allFiles, followingFiles);
-    } else {
-      onFilesSelected(followersFiles, allFiles);
-    }
+  const handleProcessClick = () => {
+    onProcess(followersFiles, followingFiles);
   };
 
-  // Handle drag events
-  const handleDragOver = (e: DragEvent<HTMLDivElement>, type: 'followers' | 'following') => {
-    e.preventDefault();
-    e.stopPropagation();
-    if (type === 'followers') {
-      setDragOverFollowers(true);
-    } else {
-      setDragOverFollowing(true);
-    }
+  const handleResetClick = () => {
+    resetFiles();
+    onReset();
   };
 
-  const handleDragLeave = (e: DragEvent<HTMLDivElement>, type: 'followers' | 'following') => {
-    e.preventDefault();
-    e.stopPropagation();
-    if (type === 'followers') {
-      setDragOverFollowers(false);
-    } else {
-      setDragOverFollowing(false);
-    }
-  };
-
-  const handleDrop = (e: DragEvent<HTMLDivElement>, type: 'followers' | 'following') => {
-    e.preventDefault();
-    e.stopPropagation();
-
-    if (type === 'followers') {
-      setDragOverFollowers(false);
-    } else {
-      setDragOverFollowing(false);
-    }
-
-    const files = e.dataTransfer.files;
-    handleFileSelection(files, type);
-  };
-
-  // Handle file input change
-  const handleInputChange = (e: ChangeEvent<HTMLInputElement>, type: 'followers' | 'following') => {
-    handleFileSelection(e.target.files, type);
-  };
-
-  // Trigger file input click
-  const triggerFileInput = (type: 'followers' | 'following') => {
-    if (type === 'followers') {
-      followersInputRef.current?.click();
-    } else {
-      followingInputRef.current?.click();
-    }
-  };
-
-  // Check if can process
   const canProcess = followersFiles.length > 0 && followingFiles.length > 0 && !isProcessing;
 
   return (
@@ -285,7 +215,7 @@ export default function FileUploadCard({
       <div className="flex flex-col sm:flex-row flex-wrap gap-2 sm:gap-3">
         <div className="w-full sm:w-auto">
           <GlowButton
-            onClick={onProcess}
+            onClick={handleProcessClick}
             disabled={!canProcess}
             ariaLabel="Proses file"
           >
@@ -296,7 +226,7 @@ export default function FileUploadCard({
 
         <div className="w-full sm:w-auto">
           <SwapButton
-            onClick={onSwap}
+            onClick={swapFiles}
             disabled={followersFiles.length === 0 && followingFiles.length === 0}
             ariaLabel="Tukar posisi file"
           >
@@ -307,7 +237,7 @@ export default function FileUploadCard({
 
         <div className="w-full sm:w-auto flex justify-center sm:justify-start">
           <ResetButton
-            onClick={onReset}
+            onClick={handleResetClick}
             disabled={followersFiles.length === 0 && followingFiles.length === 0}
           />
         </div>

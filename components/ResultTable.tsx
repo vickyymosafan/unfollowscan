@@ -1,17 +1,30 @@
 'use client';
 
-import { useState, useMemo, useEffect } from 'react';
 import { ResultTableProps } from '@/lib/types';
 import { generateCSV, downloadCSV } from '@/lib/utils/csv-generator';
 import { formatNumber } from '@/lib/utils/format';
 import { UserIcon, ClipboardIcon, ExternalLinkIcon, ArrowLeftIcon, ArrowRightIcon } from '@/lib/icons';
+import { useTableSearch } from '@/lib/hooks/useTableSearch';
+import { useTablePagination } from '@/lib/hooks/useTablePagination';
 import DownloadButton from './DownloadButton';
 import SearchInput from './SearchInput';
 
 export default function ResultTable({ data, category }: ResultTableProps) {
-  const [searchQuery, setSearchQuery] = useState('');
-  const [currentPage, setCurrentPage] = useState(1);
-  const itemsPerPage = 20;
+  const { searchQuery, setSearchQuery, getFilteredData } = useTableSearch();
+  const filteredData = getFilteredData(data);
+
+  const {
+    currentPage,
+    totalPages,
+    goToNextPage,
+    goToPreviousPage,
+    getPaginatedData,
+  } = useTablePagination({
+    totalItems: filteredData.length,
+    itemsPerPage: 20,
+  });
+
+  const paginatedData = getPaginatedData(filteredData);
 
   // CSV filename mapping
   const csvFilenames: Record<string, string> = {
@@ -20,43 +33,10 @@ export default function ResultTable({ data, category }: ResultTableProps) {
     'mutual': 'mutual.csv',
   };
 
-  // Filter data based on search query
-  const filteredData = useMemo(() => {
-    if (!searchQuery.trim()) return data;
-    
-    const query = searchQuery.toLowerCase();
-    return data.filter((username) => username.toLowerCase().includes(query));
-  }, [data, searchQuery]);
-
-  // Calculate pagination
-  const totalPages = Math.ceil(filteredData.length / itemsPerPage);
-  const startIndex = (currentPage - 1) * itemsPerPage;
-  const endIndex = startIndex + itemsPerPage;
-  const paginatedData = filteredData.slice(startIndex, endIndex);
-
-  // Reset to page 1 when search changes
-  useEffect(() => {
-    setCurrentPage(1);
-  }, [searchQuery]);
-
-  // Handle CSV download
   const handleDownloadCSV = () => {
     const csvContent = generateCSV(filteredData);
     const filename = csvFilenames[category] || 'export.csv';
     downloadCSV(csvContent, filename);
-  };
-
-  // Handle pagination
-  const goToNextPage = () => {
-    if (currentPage < totalPages) {
-      setCurrentPage(currentPage + 1);
-    }
-  };
-
-  const goToPreviousPage = () => {
-    if (currentPage > 1) {
-      setCurrentPage(currentPage - 1);
-    }
   };
 
   // Empty state: no data at all
@@ -81,7 +61,7 @@ export default function ResultTable({ data, category }: ResultTableProps) {
         <div className="flex-1 sm:flex-initial">
           <SearchInput
             value={searchQuery}
-            onChange={setSearchQuery}
+            onChange={(value) => setSearchQuery(value)}
             placeholder="Cari username..."
           />
         </div>
