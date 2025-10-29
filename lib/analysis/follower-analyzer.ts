@@ -1,4 +1,4 @@
-import { AnalysisResults } from '@/lib/types';
+import { AnalysisResults } from '@/types';
 import { setDifference, setIntersection, mergeAndDeduplicate } from '@/lib/utils/set-operations';
 
 /**

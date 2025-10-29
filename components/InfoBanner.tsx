@@ -1,4 +1,4 @@
-import { LockIcon } from '@/lib/icons';
+import { LockIcon } from '@/components/icons';
 
 export default function InfoBanner() {
   return (

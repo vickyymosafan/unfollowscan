@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import styled from 'styled-components';
-import { HomeIcon, BookIcon } from '@/lib/icons';
+import { HomeIcon, BookIcon } from '@/components/icons';
 
 export default function Header() {
   return (

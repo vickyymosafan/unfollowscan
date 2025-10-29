@@ -1,4 +1,4 @@
-import { InstagramJSONData, ParsedUser } from '@/lib/types';
+import { InstagramJSONData, ParsedUser } from '@/types';
 import { normalizeUsername } from '@/lib/utils/username-normalizer';
 
 /**

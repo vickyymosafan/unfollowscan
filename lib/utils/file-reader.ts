@@ -1,4 +1,4 @@
-import { FileValidation } from '@/lib/types';
+import { FileValidation } from '@/types';
 
 /**
  * Baca file sebagai text menggunakan FileReader API
@@ -9,21 +9,21 @@ import { FileValidation } from '@/lib/types';
 export function readFileAsText(file: File): Promise<string> {
   return new Promise((resolve, reject) => {
     const reader = new FileReader();
-    
+
     reader.onload = (event) => {
       const content = event.target?.result;
-      
+
       if (typeof content === 'string') {
         resolve(content);
       } else {
         reject(new Error('Failed to read file as text'));
       }
     };
-    
+
     reader.onerror = () => {
       reject(new Error(`Error reading file: ${file.name}`));
     };
-    
+
     reader.readAsText(file);
   });
 }
@@ -37,29 +37,29 @@ export function readFileAsText(file: File): Promise<string> {
 export function validateFileType(file: File): FileValidation {
   const fileName = file.name.toLowerCase();
   const fileType = file.type.toLowerCase();
-  
+
   // Check extension
   const isJSON = fileName.endsWith('.json');
   const isHTML = fileName.endsWith('.html') || fileName.endsWith('.htm');
-  
+
   // Check MIME type jika ada
   const hasJSONMime = fileType.includes('json');
   const hasHTMLMime = fileType.includes('html');
-  
+
   if (isJSON || hasJSONMime) {
     return {
       isValid: true,
       fileType: 'json'
     };
   }
-  
+
   if (isHTML || hasHTMLMime) {
     return {
       isValid: true,
       fileType: 'html'
     };
   }
-  
+
   // File type tidak dikenali
   return {
     isValid: false,
@@ -77,6 +77,6 @@ export function validateFileType(file: File): FileValidation {
 export function readMultipleFiles(files: File[]): Promise<string[]> {
   // Baca semua files secara concurrent menggunakan Promise.all
   const readPromises = files.map(file => readFileAsText(file));
-  
+
   return Promise.all(readPromises);
 }

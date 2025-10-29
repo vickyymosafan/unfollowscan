@@ -120,7 +120,7 @@ export interface UseTextPressureReturn {
  * Return type untuk useInstagramAnalysis hook
  */
 export interface UseInstagramAnalysisReturn {
-    results: import('@/lib/types').AnalysisResults | null;
+    results: import('./index').AnalysisResults | null;
     error: string | null;
     isProcessing: boolean;
     activeTab: AnalysisTab;

@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { DownloadIcon } from '@/lib/icons';
+import { DownloadIcon } from '@/components/icons';
 
 interface DownloadButtonProps {
     onClick: () => void;

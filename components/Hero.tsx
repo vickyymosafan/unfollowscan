@@ -2,7 +2,7 @@ import AnimatedGuideButton from './AnimatedGuideButton';
 import AnimatedStartButton from './AnimatedStartButton';
 import PrivacyBadge from './PrivacyBadge';
 import InteractiveHeading from './InteractiveHeading';
-import { CheckmarkIcon } from '@/lib/icons';
+import { CheckmarkIcon } from '@/components/icons';
 
 export default function Hero() {
   const trustIndicators = [

@@ -13,8 +13,8 @@
 import { useState, useRef, useTransition, useCallback } from 'react';
 import { readMultipleFiles } from '@/lib/utils/file-reader';
 import { smoothScrollToElement } from '@/lib/utils/scroll';
-import { AnalysisResults, ERROR_MESSAGES } from '@/lib/types';
-import { UseInstagramAnalysisReturn, AnalysisTab } from '@/lib/types/hooks';
+import { AnalysisResults, ERROR_MESSAGES } from '@/types';
+import { UseInstagramAnalysisReturn, AnalysisTab } from '@/types/hooks';
 import { useWebWorker } from './useWebWorker';
 import type { WorkerMessage, WorkerResponse } from '@/lib/workers/instagram-worker';
 

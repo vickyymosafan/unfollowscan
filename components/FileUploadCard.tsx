@@ -1,7 +1,7 @@
 'use client';
 
-import { useFileUpload } from '@/lib/hooks/useFileUpload';
-import { UploadIcon, LightningIcon, SwapIcon, ArrowDownIcon } from '@/lib/icons';
+import { useFileUpload } from '@/hooks/useFileUpload';
+import { UploadIcon, LightningIcon, SwapIcon, ArrowDownIcon } from '@/components/icons';
 import GlowButton from './GlowButton';
 import SwapButton from './SwapButton';
 import ResetButton from './ResetButton';

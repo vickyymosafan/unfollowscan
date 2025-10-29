@@ -1,5 +1,5 @@
 import { useState, useMemo } from 'react';
-import { UseTableSearchReturn } from '@/lib/types/hooks';
+import { UseTableSearchReturn } from '@/types/hooks';
 
 /**
  * Custom hook untuk mengelola table search logic

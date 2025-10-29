@@ -1,6 +1,6 @@
 import { useState, useRef, ChangeEvent, DragEvent } from 'react';
 import { validateFileType } from '@/lib/utils/file-reader';
-import { UseFileUploadReturn, FileType, DragState, FileErrors } from '@/lib/types/hooks';
+import { UseFileUploadReturn, FileType, DragState, FileErrors } from '@/types/hooks';
 
 /**
  * Custom hook untuk mengelola file upload logic

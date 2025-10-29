@@ -1,7 +1,7 @@
 'use client';
 
 import styled from 'styled-components';
-import { LockIcon } from '@/lib/icons';
+import { LockIcon } from '@/components/icons';
 
 export default function PrivacyBadge() {
   return (

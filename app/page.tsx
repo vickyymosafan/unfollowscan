@@ -9,8 +9,8 @@ import ResultTabs from '@/components/ResultTabs';
 import ResultTable from '@/components/ResultTable';
 import Footer from '@/components/Footer';
 import PageWithBackground from '@/components/PageWithBackground';
-import { useInstagramAnalysis } from '@/lib/hooks/useInstagramAnalysis';
-import { SuccessIcon, EyeIcon, ArrowDownIcon, AlertIcon } from '@/lib/icons';
+import { useInstagramAnalysis } from '@/hooks/useInstagramAnalysis';
+import { SuccessIcon, EyeIcon, ArrowDownIcon, AlertIcon } from '@/components/icons';
 
 export default function Home() {
   const {

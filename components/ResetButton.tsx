@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { TrashIcon } from '@/lib/icons';
+import { TrashIcon } from '@/components/icons';
 
 interface ResetButtonProps {
   onClick: () => void;

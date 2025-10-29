@@ -3,8 +3,8 @@ import { readMultipleFiles } from '@/lib/utils/file-reader';
 import { parseInstagramFile } from '@/lib/parser/instagram-parser';
 import { analyzeFollowers } from '@/lib/analysis/follower-analyzer';
 import { smoothScrollToElement } from '@/lib/utils/scroll';
-import { AnalysisResults, ERROR_MESSAGES } from '@/lib/types';
-import { UseInstagramAnalysisReturn, AnalysisTab } from '@/lib/types/hooks';
+import { AnalysisResults, ERROR_MESSAGES } from '@/types';
+import { UseInstagramAnalysisReturn, AnalysisTab } from '@/types/hooks';
 
 /**
  * Custom hook untuk mengelola Instagram analysis logic

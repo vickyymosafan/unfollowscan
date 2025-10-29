@@ -1,4 +1,4 @@
-import { ParsedUser } from '@/lib/types';
+import { ParsedUser } from '@/types';
 import { parseJSON } from './json-parser';
 import { parseHTML } from './html-parser';
 

@@ -1,6 +1,6 @@
 'use client';
 
-import { useTextPressure } from '@/lib/hooks/useTextPressure';
+import { useTextPressure } from '@/hooks/useTextPressure';
 
 interface TextPressureProps {
     text?: string;

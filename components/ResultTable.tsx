@@ -1,11 +1,11 @@
 'use client';
 
-import { ResultTableProps } from '@/lib/types';
+import { ResultTableProps } from '@/types';
 import { generateCSV, downloadCSV } from '@/lib/utils/csv-generator';
 import { formatNumber } from '@/lib/utils/format';
-import { UserIcon, ClipboardIcon, ExternalLinkIcon, ArrowLeftIcon, ArrowRightIcon } from '@/lib/icons';
-import { useTableSearch } from '@/lib/hooks/useTableSearch';
-import { useTablePagination } from '@/lib/hooks/useTablePagination';
+import { UserIcon, ClipboardIcon, ExternalLinkIcon, ArrowLeftIcon, ArrowRightIcon } from '@/components/icons';
+import { useTableSearch } from '@/hooks/useTableSearch';
+import { useTablePagination } from '@/hooks/useTablePagination';
 import DownloadButton from './DownloadButton';
 import SearchInput from './SearchInput';
 
@@ -94,40 +94,40 @@ export default function ResultTable({ data, category }: ResultTableProps) {
           <div className="overflow-hidden border-2 border-shark-300 rounded-xl sm:rounded-2xl shadow-sm bg-white">
             <div className="overflow-x-auto">
               <table className="w-full border-collapse min-w-[300px]">
-              <thead>
-                <tr>
-                  <th className="sticky top-0 bg-shark-950 text-shark-50 text-left px-4 sm:px-6 py-3 sm:py-4 font-semibold text-xs sm:text-sm uppercase tracking-wider z-10">
-                    <div className="flex items-center gap-2">
-                      <UserIcon className="w-4 h-4 sm:w-5 sm:h-5" />
-                      Username
-                    </div>
-                  </th>
-                </tr>
-              </thead>
-              <tbody>
-                {paginatedData.map((username, index) => (
-                  <tr
-                    key={`${username}-${index}`}
-                    className="border-b border-shark-200 hover:bg-shark-100 transition-all duration-200 group"
-                  >
-                    <td className="px-4 sm:px-6 py-3 sm:py-4">
-                      <a
-                        href={`https://instagram.com/${username}`}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="flex items-center gap-2 sm:gap-3 text-shark-800 group-hover:text-shark-950 font-medium transition-colors text-sm sm:text-base"
-                      >
-                        <div className="w-7 h-7 sm:w-8 sm:h-8 bg-shark-200 rounded-lg flex items-center justify-center group-hover:scale-110 transition-transform flex-shrink-0">
-                          <span className="text-xs sm:text-sm font-bold text-shark-800">@</span>
-                        </div>
-                        <span className="group-hover:underline break-all">{username}</span>
-                        <ExternalLinkIcon className="w-4 h-4 opacity-0 group-hover:opacity-100 transition-opacity" />
-                      </a>
-                    </td>
+                <thead>
+                  <tr>
+                    <th className="sticky top-0 bg-shark-950 text-shark-50 text-left px-4 sm:px-6 py-3 sm:py-4 font-semibold text-xs sm:text-sm uppercase tracking-wider z-10">
+                      <div className="flex items-center gap-2">
+                        <UserIcon className="w-4 h-4 sm:w-5 sm:h-5" />
+                        Username
+                      </div>
+                    </th>
                   </tr>
-                ))}
-              </tbody>
-            </table>
+                </thead>
+                <tbody>
+                  {paginatedData.map((username: string, index: number) => (
+                    <tr
+                      key={`${username}-${index}`}
+                      className="border-b border-shark-200 hover:bg-shark-100 transition-all duration-200 group"
+                    >
+                      <td className="px-4 sm:px-6 py-3 sm:py-4">
+                        <a
+                          href={`https://instagram.com/${username}`}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="flex items-center gap-2 sm:gap-3 text-shark-800 group-hover:text-shark-950 font-medium transition-colors text-sm sm:text-base"
+                        >
+                          <div className="w-7 h-7 sm:w-8 sm:h-8 bg-shark-200 rounded-lg flex items-center justify-center group-hover:scale-110 transition-transform flex-shrink-0">
+                            <span className="text-xs sm:text-sm font-bold text-shark-800">@</span>
+                          </div>
+                          <span className="group-hover:underline break-all">{username}</span>
+                          <ExternalLinkIcon className="w-4 h-4 opacity-0 group-hover:opacity-100 transition-opacity" />
+                        </a>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
             </div>
           </div>
 

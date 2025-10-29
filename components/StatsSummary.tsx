@@ -1,6 +1,6 @@
-import { StatsSummaryProps } from '@/lib/types';
+import { StatsSummaryProps } from '@/types';
 import { formatNumber } from '@/lib/utils/format';
-import { UsersIcon, UserPlusIcon, HeartIcon, UserMinusIcon, StarIcon } from '@/lib/icons';
+import { UsersIcon, UserPlusIcon, HeartIcon, UserMinusIcon, StarIcon } from '@/components/icons';
 
 export default function StatsSummary({ stats }: StatsSummaryProps) {
   const statCards = [

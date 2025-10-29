@@ -1,7 +1,7 @@
 'use client';
 
 import { KeyboardEvent, useRef, useEffect } from 'react';
-import { ResultTabsProps } from '@/lib/types';
+import { ResultTabsProps } from '@/types';
 import { formatNumber } from '@/lib/utils/format';
 
 type TabType = 'tidak-follow-balik' | 'fans' | 'mutual';

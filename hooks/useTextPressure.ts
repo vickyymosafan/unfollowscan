@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
-import { UseTextPressureProps, UseTextPressureReturn } from '@/lib/types/hooks';
+import { UseTextPressureProps, UseTextPressureReturn } from '@/types/hooks';
 import { 
   MOUSE_EASING_FACTOR, 
   FONT_VARIATION, 

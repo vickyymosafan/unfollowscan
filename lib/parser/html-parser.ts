@@ -1,4 +1,4 @@
-import { ParsedUser } from '@/lib/types';
+import { ParsedUser } from '@/types';
 import { normalizeUsername } from '@/lib/utils/username-normalizer';
 
 /**

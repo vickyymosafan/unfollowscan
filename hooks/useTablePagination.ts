@@ -1,5 +1,5 @@
 import { useState, useEffect, useMemo } from 'react';
-import { UseTablePaginationProps, UseTablePaginationReturn } from '@/lib/types/hooks';
+import { UseTablePaginationProps, UseTablePaginationReturn } from '@/types/hooks';
 import { DEFAULT_ITEMS_PER_PAGE, DEFAULT_START_PAGE } from '@/lib/constants/pagination';
 
 /**
