@@ -30,7 +30,7 @@ export default function Header() {
 }
 
 const HeaderWrapper = styled.div`
-  background-color: rgb(246, 246, 246);
+  background-color: transparent;
   width: 100%;
   padding: 16px 0;
 

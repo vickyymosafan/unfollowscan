@@ -8,6 +8,7 @@ import StatsSummary from '@/components/StatsSummary';
 import ResultTabs from '@/components/ResultTabs';
 import ResultTable from '@/components/ResultTable';
 import Footer from '@/components/Footer';
+import LiquidEther from '@/components/LiquidEther';
 import { useInstagramAnalysis } from '@/lib/hooks/useInstagramAnalysis';
 import { SuccessIcon, EyeIcon, ArrowDownIcon, AlertIcon } from '@/lib/icons';
 
@@ -25,8 +26,33 @@ export default function Home() {
   } = useInstagramAnalysis();
 
   return (
-    <div className="min-h-screen bg-shark-50">
-      <Header />
+    <div className="min-h-screen bg-shark-50 relative">
+      {/* Animated Background */}
+      <div className="fixed inset-0 z-0">
+        <LiquidEther
+          colors={['#5227FF', '#FF9FFC', '#B19EEF']}
+          mouseForce={20}
+          cursorSize={100}
+          isViscous={false}
+          viscous={30}
+          iterationsViscous={32}
+          iterationsPoisson={32}
+          dt={0.014}
+          BFECC={true}
+          resolution={0.5}
+          isBounce={false}
+          autoDemo={true}
+          autoSpeed={0.5}
+          autoIntensity={2.2}
+          takeoverDuration={0.25}
+          autoResumeDelay={3000}
+          autoRampDuration={0.6}
+        />
+      </div>
+
+      {/* Content Layer */}
+      <div className="relative z-10">
+        <Header />
 
       <main className="container mx-auto px-4 py-6 sm:py-8 lg:py-10 space-y-8 sm:space-y-10 lg:space-y-12 max-w-6xl">
         <Hero />
@@ -104,7 +130,8 @@ export default function Home() {
         )}
       </main>
 
-      <Footer />
+        <Footer />
+      </div>
     </div>
   );
 }
