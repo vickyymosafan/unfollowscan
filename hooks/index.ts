@@ -13,8 +13,6 @@ export { useTableSearch } from './useTableSearch';
 export { useTablePagination } from './useTablePagination';
 export { useTextPressure } from './useTextPressure';
 export { useInstagramAnalysis } from './useInstagramAnalysis';
-export { useInstagramAnalysisOptimized } from './useInstagramAnalysisOptimized';
-export { useWebWorker } from './useWebWorker';
 
 // Re-export types untuk convenience
 export type {
