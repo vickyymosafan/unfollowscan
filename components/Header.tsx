@@ -15,13 +15,13 @@ export default function Header() {
 
         <Link href="/">
           <button className="button" title="Beranda">
-            <HomeIcon className="icon" />
+            <HomeIcon className="w-4 h-4 sm:w-[18px] sm:h-[18px]" />
           </button>
         </Link>
 
         <Link href="/panduan">
           <button className="button" title="Panduan">
-            <BookIcon className="icon" />
+            <BookIcon className="w-4 h-4 sm:w-[18px] sm:h-[18px]" />
           </button>
         </Link>
       </ButtonContainer>
@@ -128,15 +128,5 @@ const ButtonContainer = styled.div`
 
   .button:hover {
     transform: translateY(-3px);
-  }
-
-  .icon {
-    font-size: 18px;
-  }
-
-  @media (min-width: 640px) {
-    .icon {
-      font-size: 20px;
-    }
   }
 `;
