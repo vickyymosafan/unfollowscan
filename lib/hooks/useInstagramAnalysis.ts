@@ -1,4 +1,4 @@
-import { useState, useRef } from 'react';
+import { useState, useRef, useTransition, useCallback } from 'react';
 import { readMultipleFiles } from '@/lib/utils/file-reader';
 import { parseInstagramFile } from '@/lib/parser/instagram-parser';
 import { analyzeFollowers } from '@/lib/analysis/follower-analyzer';
@@ -35,6 +35,9 @@ export function useInstagramAnalysis(): UseInstagramAnalysisReturn {
   const [results, setResults] = useState<AnalysisResults | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [activeTab, setActiveTab] = useState<AnalysisTab>('tidak-follow-balik');
+  
+  // React Transition untuk smooth, non-blocking updates
+  const [isPending, startTransition] = useTransition();
 
   /**
    * Process Instagram files dan analyze followers/following
@@ -109,13 +112,16 @@ export function useInstagramAnalysis(): UseInstagramAnalysisReturn {
   };
 
   /**
-   * Change active tab
+   * Change active tab dengan React Transition untuk smooth updates
    * 
    * @param tab - Tab to switch to
    */
-  const changeTab = (tab: AnalysisTab) => {
-    setActiveTab(tab);
-  };
+  const changeTab = useCallback((tab: AnalysisTab) => {
+    // Use startTransition untuk non-blocking tab switch
+    startTransition(() => {
+      setActiveTab(tab);
+    });
+  }, []);
 
   /**
    * Get data untuk current active tab

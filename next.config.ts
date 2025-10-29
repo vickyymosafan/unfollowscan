@@ -13,6 +13,12 @@ const nextConfig: NextConfig = {
   compiler: {
     styledComponents: true,
   },
+
+  // React Compiler will be enabled when babel-plugin-react-compiler is installed
+  // For now, we rely on React 19's built-in optimizations
+  // To enable: npm install babel-plugin-react-compiler
+  // Then uncomment:
+  // reactCompiler: true,
 };
 
 export default nextConfig;
