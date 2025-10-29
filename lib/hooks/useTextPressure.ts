@@ -1,24 +1,32 @@
 import { useEffect, useRef, useState } from 'react';
+import { UseTextPressureProps, UseTextPressureReturn } from '@/lib/types/hooks';
+import { 
+  MOUSE_EASING_FACTOR, 
+  FONT_VARIATION, 
+  DEFAULT_FONT_VARIATION 
+} from '@/lib/constants/animation';
 
-interface UseTextPressureProps {
-  chars: string[];
-  width?: boolean;
-  weight?: boolean;
-  italic?: boolean;
-  alpha?: boolean;
-  scale?: boolean;
-  minFontSize?: number;
-}
-
-interface UseTextPressureReturn {
-  containerRef: React.RefObject<HTMLDivElement | null>;
-  titleRef: React.RefObject<HTMLHeadingElement | null>;
-  spansRef: React.MutableRefObject<(HTMLSpanElement | null)[]>;
-  fontSize: number;
-  scaleY: number;
-  lineHeight: number;
-}
-
+/**
+ * Custom hook untuk mengelola text pressure animation logic
+ * 
+ * Features:
+ * - Mouse-responsive variable font animation
+ * - Touch support untuk mobile
+ * - Auto font sizing berdasarkan container
+ * - Smooth easing animation
+ * 
+ * @param {UseTextPressureProps} props - Animation configuration
+ * @returns {UseTextPressureReturn} Refs dan animation state
+ * 
+ * @example
+ * ```tsx
+ * const { containerRef, titleRef, spansRef, fontSize } = useTextPressure({
+ *   chars: text.split(''),
+ *   width: true,
+ *   weight: true
+ * });
+ * ```
+ */
 export function useTextPressure({
   chars,
   width = true,
@@ -37,7 +45,13 @@ export function useTextPressure({
   const [scaleY, setScaleY] = useState(1);
   const [lineHeight, setLineHeight] = useState(1);
 
-  const dist = (a: { x: number; y: number }, b: { x: number; y: number }) => {
+  /**
+   * Calculate Euclidean distance between two points
+   * @param a - First point
+   * @param b - Second point
+   * @returns Distance between points
+   */
+  const calculateDistance = (a: { x: number; y: number }, b: { x: number; y: number }): number => {
     const dx = b.x - a.x;
     const dy = b.y - a.y;
     return Math.sqrt(dx * dx + dy * dy);
@@ -102,39 +116,65 @@ export function useTextPressure({
     return () => window.removeEventListener('resize', setSize);
   }, [scale, chars.length, minFontSize]);
 
-  // Animation
+  // Animation loop
   useEffect(() => {
     let rafId: number;
 
+    /**
+     * Calculate font variation attribute based on distance
+     * Closer to mouse = higher value, further = lower value
+     * 
+     * @param distance - Distance from mouse to character
+     * @param minVal - Minimum attribute value
+     * @param maxVal - Maximum attribute value
+     * @returns Calculated attribute value
+     */
+    const calculateAttribute = (distance: number, minVal: number, maxVal: number, maxDistance: number): number => {
+      const normalizedDistance = Math.abs((maxVal * distance) / maxDistance);
+      const value = maxVal - normalizedDistance;
+      return Math.max(minVal, value + minVal);
+    };
+
     const animate = () => {
-      mouseRef.current.x += (cursorRef.current.x - mouseRef.current.x) / 15;
-      mouseRef.current.y += (cursorRef.current.y - mouseRef.current.y) / 15;
+      // Smooth mouse tracking dengan easing
+      mouseRef.current.x += (cursorRef.current.x - mouseRef.current.x) / MOUSE_EASING_FACTOR;
+      mouseRef.current.y += (cursorRef.current.y - mouseRef.current.y) / MOUSE_EASING_FACTOR;
 
       if (titleRef.current) {
         const titleRect = titleRef.current.getBoundingClientRect();
-        const maxDist = titleRect.width / 2;
+        const maxDistance = titleRect.width / 2;
 
         spansRef.current.forEach(span => {
           if (!span) return;
 
+          // Get character center position
           const rect = span.getBoundingClientRect();
           const charCenter = {
             x: rect.x + rect.width / 2,
             y: rect.y + rect.height / 2
           };
 
-          const d = dist(mouseRef.current, charCenter);
+          // Calculate distance from mouse to character
+          const distance = calculateDistance(mouseRef.current, charCenter);
 
-          const getAttr = (distance: number, minVal: number, maxVal: number) => {
-            const val = maxVal - Math.abs((maxVal * distance) / maxDist);
-            return Math.max(minVal, val + minVal);
-          };
+          // Calculate font variation values
+          const wdth = width 
+            ? Math.floor(calculateAttribute(distance, FONT_VARIATION.WIDTH.MIN, FONT_VARIATION.WIDTH.MAX, maxDistance))
+            : DEFAULT_FONT_VARIATION.WIDTH;
+            
+          const wght = weight 
+            ? Math.floor(calculateAttribute(distance, FONT_VARIATION.WEIGHT.MIN, FONT_VARIATION.WEIGHT.MAX, maxDistance))
+            : DEFAULT_FONT_VARIATION.WEIGHT;
+            
+          const italVal = italic 
+            ? calculateAttribute(distance, FONT_VARIATION.ITALIC.MIN, FONT_VARIATION.ITALIC.MAX, maxDistance).toFixed(2)
+            : DEFAULT_FONT_VARIATION.ITALIC.toString();
+            
+          const alphaVal = alpha 
+            ? calculateAttribute(distance, FONT_VARIATION.ALPHA.MIN, FONT_VARIATION.ALPHA.MAX, maxDistance).toFixed(2)
+            : DEFAULT_FONT_VARIATION.ALPHA.toString();
 
-          const wdth = width ? Math.floor(getAttr(d, 5, 200)) : 100;
-          const wght = weight ? Math.floor(getAttr(d, 100, 900)) : 400;
-          const italVal = italic ? getAttr(d, 0, 1).toFixed(2) : '0';
-          const alphaVal = alpha ? getAttr(d, 0, 1).toFixed(2) : '1';
-
+          // Apply styles
           span.style.opacity = alphaVal;
           span.style.fontVariationSettings = `'wght' ${wght}, 'wdth' ${wdth}, 'ital' ${italVal}`;
         });

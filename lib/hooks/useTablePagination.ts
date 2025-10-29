@@ -1,26 +1,33 @@
 import { useState, useEffect, useMemo } from 'react';
+import { UseTablePaginationProps, UseTablePaginationReturn } from '@/lib/types/hooks';
+import { DEFAULT_ITEMS_PER_PAGE, DEFAULT_START_PAGE } from '@/lib/constants/pagination';
 
-interface UseTablePaginationProps {
-  totalItems: number;
-  itemsPerPage?: number;
-}
-
-interface UseTablePaginationReturn {
-  currentPage: number;
-  totalPages: number;
-  startIndex: number;
-  endIndex: number;
-  goToNextPage: () => void;
-  goToPreviousPage: () => void;
-  resetPage: () => void;
-  getPaginatedData: <T>(data: T[]) => T[];
-}
-
+/**
+ * Custom hook untuk mengelola table pagination logic
+ * 
+ * Features:
+ * - Automatic page calculation
+ * - Navigation functions (next/previous)
+ * - Auto-reset ketika totalItems berubah
+ * - Memoized pagination untuk performance
+ * 
+ * @param {UseTablePaginationProps} props - Pagination configuration
+ * @returns {UseTablePaginationReturn} Pagination state dan functions
+ * 
+ * @example
+ * ```tsx
+ * const { currentPage, totalPages, getPaginatedData } = useTablePagination({
+ *   totalItems: data.length,
+ *   itemsPerPage: 20
+ * });
+ * const paginated = getPaginatedData(data);
+ * ```
+ */
 export function useTablePagination({
   totalItems,
-  itemsPerPage = 20,
+  itemsPerPage = DEFAULT_ITEMS_PER_PAGE,
 }: UseTablePaginationProps): UseTablePaginationReturn {
-  const [currentPage, setCurrentPage] = useState(1);
+  const [currentPage, setCurrentPage] = useState(DEFAULT_START_PAGE);
 
   const totalPages = Math.ceil(totalItems / itemsPerPage);
   const startIndex = (currentPage - 1) * itemsPerPage;
@@ -39,7 +46,7 @@ export function useTablePagination({
   };
 
   const resetPage = () => {
-    setCurrentPage(1);
+    setCurrentPage(DEFAULT_START_PAGE);
   };
 
   const getPaginatedData = useMemo(() => {
@@ -50,7 +57,7 @@ export function useTablePagination({
 
   // Reset to page 1 when totalItems changes
   useEffect(() => {
-    setCurrentPage(1);
+    setCurrentPage(DEFAULT_START_PAGE);
   }, [totalItems]);
 
   return {

@@ -1,30 +1,32 @@
 import { useState, useRef, ChangeEvent, DragEvent } from 'react';
 import { validateFileType } from '@/lib/utils/file-reader';
+import { UseFileUploadReturn, FileType, DragState, FileErrors } from '@/lib/types/hooks';
 
-interface UseFileUploadReturn {
-    followersFiles: File[];
-    followingFiles: File[];
-    errors: { followers: string[]; following: string[] };
-    dragOverFollowers: boolean;
-    dragOverFollowing: boolean;
-    followersInputRef: React.RefObject<HTMLInputElement | null>;
-    followingInputRef: React.RefObject<HTMLInputElement | null>;
-    handleFileSelection: (files: FileList | null, type: 'followers' | 'following') => void;
-    handleDragOver: (e: DragEvent<HTMLDivElement>, type: 'followers' | 'following') => void;
-    handleDragLeave: (e: DragEvent<HTMLDivElement>, type: 'followers' | 'following') => void;
-    handleDrop: (e: DragEvent<HTMLDivElement>, type: 'followers' | 'following') => void;
-    handleInputChange: (e: ChangeEvent<HTMLInputElement>, type: 'followers' | 'following') => void;
-    triggerFileInput: (type: 'followers' | 'following') => void;
-    swapFiles: () => void;
-    resetFiles: () => void;
-}
-
+/**
+ * Custom hook untuk mengelola file upload logic
+ * 
+ * Features:
+ * - File validation
+ * - Drag & drop support
+ * - Multiple file support
+ * - Error handling
+ * - File swap functionality
+ * 
+ * @returns {UseFileUploadReturn} File upload state dan handlers
+ * 
+ * @example
+ * ```tsx
+ * const { followersFiles, handleFileSelection } = useFileUpload();
+ * ```
+ */
 export function useFileUpload(): UseFileUploadReturn {
     const [followersFiles, setFollowersFiles] = useState<File[]>([]);
     const [followingFiles, setFollowingFiles] = useState<File[]>([]);
-    const [dragOverFollowers, setDragOverFollowers] = useState(false);
-    const [dragOverFollowing, setDragOverFollowing] = useState(false);
-    const [errors, setErrors] = useState<{ followers: string[]; following: string[] }>({
+    const [dragState, setDragState] = useState<DragState>({
+        followers: false,
+        following: false,
+    });
+    const [errors, setErrors] = useState<FileErrors>({
         followers: [],
         following: [],
     });
@@ -32,13 +34,42 @@ export function useFileUpload(): UseFileUploadReturn {
     const followersInputRef = useRef<HTMLInputElement>(null);
     const followingInputRef = useRef<HTMLInputElement>(null);
 
-    const handleFileSelection = (files: FileList | null, type: 'followers' | 'following') => {
+    /**
+     * Helper: Update drag state untuk specific file type
+     */
+    const updateDragState = (type: FileType, isOver: boolean) => {
+        setDragState(prev => ({ ...prev, [type]: isOver }));
+    };
+
+    /**
+     * Helper: Get files by type
+     */
+    const getFilesByType = (type: FileType): File[] => {
+        return type === 'followers' ? followersFiles : followingFiles;
+    };
+
+    /**
+     * Helper: Set files by type
+     */
+    const setFilesByType = (type: FileType, files: File[]) => {
+        if (type === 'followers') {
+            setFollowersFiles(files);
+        } else {
+            setFollowingFiles(files);
+        }
+    };
+
+    /**
+     * Handle file selection dan validation
+     */
+    const handleFileSelection = (files: FileList | null, type: FileType) => {
         if (!files || files.length === 0) return;
 
         const fileArray = Array.from(files);
         const validationErrors: string[] = [];
         const validFiles: File[] = [];
 
+        // Validate each file
         fileArray.forEach((file) => {
             const validation = validateFileType(file);
             if (validation.isValid) {
@@ -48,76 +79,77 @@ export function useFileUpload(): UseFileUploadReturn {
             }
         });
 
+        // Update errors
         setErrors((prev) => ({
             ...prev,
             [type]: validationErrors,
         }));
 
-        const existingFiles = type === 'followers' ? followersFiles : followingFiles;
+        // Combine with existing files
+        const existingFiles = getFilesByType(type);
         const allFiles = [...existingFiles, ...validFiles];
-
-        if (type === 'followers') {
-            setFollowersFiles(allFiles);
-        } else {
-            setFollowingFiles(allFiles);
-        }
+        setFilesByType(type, allFiles);
     };
 
-    const handleDragOver = (e: DragEvent<HTMLDivElement>, type: 'followers' | 'following') => {
+    /**
+     * Handle drag over event
+     */
+    const handleDragOver = (e: DragEvent<HTMLDivElement>, type: FileType) => {
         e.preventDefault();
         e.stopPropagation();
-        if (type === 'followers') {
-            setDragOverFollowers(true);
-        } else {
-            setDragOverFollowing(true);
-        }
+        updateDragState(type, true);
     };
 
-    const handleDragLeave = (e: DragEvent<HTMLDivElement>, type: 'followers' | 'following') => {
+    /**
+     * Handle drag leave event
+     */
+    const handleDragLeave = (e: DragEvent<HTMLDivElement>, type: FileType) => {
         e.preventDefault();
         e.stopPropagation();
-        if (type === 'followers') {
-            setDragOverFollowers(false);
-        } else {
-            setDragOverFollowing(false);
-        }
+        updateDragState(type, false);
     };
 
-    const handleDrop = (e: DragEvent<HTMLDivElement>, type: 'followers' | 'following') => {
+    /**
+     * Handle drop event
+     */
+    const handleDrop = (e: DragEvent<HTMLDivElement>, type: FileType) => {
         e.preventDefault();
         e.stopPropagation();
-
-        if (type === 'followers') {
-            setDragOverFollowers(false);
-        } else {
-            setDragOverFollowing(false);
-        }
-
-        const files = e.dataTransfer.files;
-        handleFileSelection(files, type);
+        updateDragState(type, false);
+        handleFileSelection(e.dataTransfer.files, type);
     };
 
-    const handleInputChange = (e: ChangeEvent<HTMLInputElement>, type: 'followers' | 'following') => {
+    /**
+     * Handle input change event
+     */
+    const handleInputChange = (e: ChangeEvent<HTMLInputElement>, type: FileType) => {
         handleFileSelection(e.target.files, type);
     };
 
-    const triggerFileInput = (type: 'followers' | 'following') => {
-        if (type === 'followers') {
-            followersInputRef.current?.click();
-        } else {
-            followingInputRef.current?.click();
-        }
+    /**
+     * Trigger file input click programmatically
+     */
+    const triggerFileInput = (type: FileType) => {
+        const ref = type === 'followers' ? followersInputRef : followingInputRef;
+        ref.current?.click();
     };
 
+    /**
+     * Swap followers dan following files
+     */
     const swapFiles = () => {
         const temp = followersFiles;
         setFollowersFiles(followingFiles);
         setFollowingFiles(temp);
     };
 
+    /**
+     * Reset semua files dan errors
+     */
     const resetFiles = () => {
         setFollowersFiles([]);
         setFollowingFiles([]);
+        setDragState({ followers: false, following: false });
         setErrors({ followers: [], following: [] });
     };
 
@@ -125,8 +157,8 @@ export function useFileUpload(): UseFileUploadReturn {
         followersFiles,
         followingFiles,
         errors,
-        dragOverFollowers,
-        dragOverFollowing,
+        dragOverFollowers: dragState.followers,
+        dragOverFollowing: dragState.following,
         followersInputRef,
         followingInputRef,
         handleFileSelection,

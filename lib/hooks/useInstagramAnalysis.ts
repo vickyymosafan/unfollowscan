@@ -4,27 +4,46 @@ import { parseInstagramFile } from '@/lib/parser/instagram-parser';
 import { analyzeFollowers } from '@/lib/analysis/follower-analyzer';
 import { smoothScrollToElement } from '@/lib/utils/scroll';
 import { AnalysisResults, ERROR_MESSAGES } from '@/lib/types';
+import { UseInstagramAnalysisReturn, AnalysisTab } from '@/lib/types/hooks';
 
-interface UseInstagramAnalysisReturn {
-  results: AnalysisResults | null;
-  error: string | null;
-  isProcessing: boolean;
-  activeTab: 'tidak-follow-balik' | 'fans' | 'mutual';
-  resultsRef: React.RefObject<HTMLDivElement | null>;
-  processFiles: (followersFiles: File[], followingFiles: File[]) => Promise<void>;
-  reset: () => void;
-  changeTab: (tab: 'tidak-follow-balik' | 'fans' | 'mutual') => void;
-  getCurrentTabData: () => string[];
-}
-
+/**
+ * Custom hook untuk mengelola Instagram analysis logic
+ * 
+ * Features:
+ * - File processing orchestration
+ * - Analysis state management
+ * - Tab navigation
+ * - Error handling
+ * - Auto scroll to results
+ * 
+ * @returns {UseInstagramAnalysisReturn} Analysis state dan functions
+ * 
+ * @example
+ * ```tsx
+ * const { results, processFiles, activeTab, changeTab } = useInstagramAnalysis();
+ * 
+ * // Process files
+ * await processFiles(followersFiles, followingFiles);
+ * 
+ * // Change tab
+ * changeTab('fans');
+ * ```
+ */
 export function useInstagramAnalysis(): UseInstagramAnalysisReturn {
   const resultsRef = useRef<HTMLDivElement>(null);
   const [isProcessing, setIsProcessing] = useState(false);
   const [results, setResults] = useState<AnalysisResults | null>(null);
   const [error, setError] = useState<string | null>(null);
-  const [activeTab, setActiveTab] = useState<'tidak-follow-balik' | 'fans' | 'mutual'>('tidak-follow-balik');
+  const [activeTab, setActiveTab] = useState<AnalysisTab>('tidak-follow-balik');
 
+  /**
+   * Process Instagram files dan analyze followers/following
+   * 
+   * @param followersFiles - Array of followers files
+   * @param followingFiles - Array of following files
+   */
   const processFiles = async (followersFiles: File[], followingFiles: File[]) => {
+    // Validation
     if (followersFiles.length === 0 || followingFiles.length === 0) {
       setError(ERROR_MESSAGES.MISSING_FILES);
       return;
@@ -50,13 +69,13 @@ export function useInstagramAnalysis(): UseInstagramAnalysisReturn {
       const followersUsernames = followersParsed.map((user) => user.username);
       const followingUsernames = followingParsed.map((user) => user.username);
 
-      // Check if we got any data
+      // Validation: Check if we got any data
       if (followersUsernames.length === 0 && followingUsernames.length === 0) {
         setError(ERROR_MESSAGES.NO_DATA_FOUND);
         return;
       }
 
-      // Step 4: Analyze
+      // Step 4: Analyze followers/following
       const analysisResults = analyzeFollowers(
         followersUsernames,
         followingUsernames
@@ -70,13 +89,18 @@ export function useInstagramAnalysis(): UseInstagramAnalysisReturn {
         smoothScrollToElement(resultsRef.current, 100, 1200);
       }, 400);
     } catch (err) {
-      console.error('Error processing files:', err);
+      // Error handling dengan detailed logging
+      const errorMessage = err instanceof Error ? err.message : 'Unknown error';
+      console.error('Error processing files:', errorMessage, err);
       setError(ERROR_MESSAGES.PARSE_ERROR);
     } finally {
       setIsProcessing(false);
     }
   };
 
+  /**
+   * Reset semua state ke initial values
+   */
   const reset = () => {
     setResults(null);
     setError(null);
@@ -84,23 +108,31 @@ export function useInstagramAnalysis(): UseInstagramAnalysisReturn {
     setActiveTab('tidak-follow-balik');
   };
 
-  const changeTab = (tab: 'tidak-follow-balik' | 'fans' | 'mutual') => {
+  /**
+   * Change active tab
+   * 
+   * @param tab - Tab to switch to
+   */
+  const changeTab = (tab: AnalysisTab) => {
     setActiveTab(tab);
   };
 
+  /**
+   * Get data untuk current active tab
+   * 
+   * @returns Array of usernames untuk active tab
+   */
   const getCurrentTabData = (): string[] => {
     if (!results) return [];
 
-    switch (activeTab) {
-      case 'tidak-follow-balik':
-        return results.tidakFollowBalik;
-      case 'fans':
-        return results.fans;
-      case 'mutual':
-        return results.mutual;
-      default:
-        return [];
-    }
+    // Simplified mapping menggunakan object lookup
+    const tabDataMap: Record<AnalysisTab, string[]> = {
+      'tidak-follow-balik': results.tidakFollowBalik,
+      'fans': results.fans,
+      'mutual': results.mutual,
+    };
+
+    return tabDataMap[activeTab] || [];
   };
 
   return {
