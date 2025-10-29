@@ -307,6 +307,65 @@ Menghapus import `@import "tw-animate-css";` dari globals.css karena:
 - Animasi tetap berfungsi dengan baik
 - Kode lebih clean dan maintainable
 
+## Dead Code Removal
+
+### Analisa dan Pembersihan Dead Code
+
+**Masalah:** Codebase memiliki file dan dependencies yang tidak digunakan (dead code), menyebabkan:
+- Bundle size lebih besar
+- Maintenance overhead
+- Confusion untuk developer
+- Dependency bloat
+
+**Akar Masalah:**
+Setelah analisa menyeluruh terhadap codebase, ditemukan dead code:
+
+**Files (Dead Code):**
+1. `components/SplitText.tsx` - Component tidak digunakan di mana pun
+2. `lib/utils.ts` - Utility function `cn()` tidak digunakan di mana pun
+
+**Dependencies (Unused):**
+1. `gsap` (^3.13.0) - Hanya digunakan di SplitText.tsx yang dead code
+2. `@gsap/react` (^2.1.2) - Hanya digunakan di SplitText.tsx yang dead code
+3. `lucide-react` (^0.548.0) - Tidak digunakan di mana pun
+4. `class-variance-authority` (^0.7.1) - Tidak digunakan di mana pun
+5. `clsx` (^2.1.1) - Hanya digunakan di lib/utils.ts yang dead code
+6. `tailwind-merge` (^3.3.1) - Hanya digunakan di lib/utils.ts yang dead code
+7. `tw-animate-css` (^1.4.0) - Sudah dihapus dari globals.css, tidak digunakan
+
+**Solusi:**
+1. Hapus file dead code:
+   - `components/SplitText.tsx`
+   - `lib/utils.ts`
+
+2. Hapus unused dependencies dari `package.json`:
+   - Removed: `@gsap/react`, `class-variance-authority`, `clsx`, `gsap`, `lucide-react`, `tailwind-merge`
+   - Removed from devDependencies: `tw-animate-css`
+
+3. Keep only essential dependencies:
+   - `next`, `react`, `react-dom`, `styled-components`
+   - Dev dependencies: `@tailwindcss/postcss`, `@types/*`, `eslint`, `tailwindcss`, `typescript`
+
+**File yang dihapus:**
+- `components/SplitText.tsx` - 207 lines
+- `lib/utils.ts` - 7 lines
+
+**File yang diupdate:**
+- `package.json` - Removed 7 unused dependencies
+
+**Hasil:**
+- ✅ **Bundle size lebih kecil** - Menghapus ~214 lines dead code
+- ✅ **Dependency lebih clean** - Dari 11 dependencies menjadi 4 dependencies
+- ✅ **Maintenance lebih mudah** - Tidak ada code yang membingungkan
+- ✅ **Build tetap success** - Tidak ada breaking changes
+- ✅ **Performance improvement** - Lebih sedikit code untuk di-parse dan bundle
+
+**Impact:**
+- Mengurangi 7 dependencies (63% reduction)
+- Mengurangi 214 lines dead code
+- Bundle size lebih optimal
+- Codebase lebih maintainable
+
 ## Kesimpulan
 
 Refactoring ini berhasil menghilangkan ~800+ baris kode duplikat dan meningkatkan maintainability codebase secara signifikan. Semua perubahan backward-compatible dan tidak mengubah UI atau behavior aplikasi.
