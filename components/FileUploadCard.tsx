@@ -316,10 +316,12 @@ export default function FileUploadCard({
           </SwapButton>
         </div>
 
-        <ResetButton
-          onClick={onReset}
-          disabled={followersFiles.length === 0 && followingFiles.length === 0}
-        />
+        <div className="w-full sm:w-auto flex justify-center sm:justify-start">
+          <ResetButton
+            onClick={onReset}
+            disabled={followersFiles.length === 0 && followingFiles.length === 0}
+          />
+        </div>
       </div>
     </div>
   );

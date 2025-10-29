@@ -79,10 +79,13 @@ const StyledWrapper = styled.div`
   .container .input:focus ~ .label,
   .container .input.has-value ~ .label {
     transition: 0.3s;
-    padding-left: 2px;
+    padding-left: 4px;
+    padding-right: 4px;
     transform: translateY(-35px);
     color: var(--color-shark-700);
     font-size: 13px;
+    background-color: var(--color-shark-50);
+    border-radius: 4px;
   }
 
   .container .input:focus,
