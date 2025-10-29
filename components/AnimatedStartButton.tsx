@@ -1,53 +1,291 @@
-import styles from './AnimatedStartButton.module.css';
+'use client';
+
+import React from 'react';
+import styled from 'styled-components';
+
+const StyledWrapper = styled.div`
+  display: inline-block;
+
+  .type--C {
+    --line_color: #00135c;
+    --back_color: #defffa;
+  }
+
+  .button {
+    position: relative;
+    z-index: 0;
+    width: 280px;
+    height: 56px;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: bold;
+    color: var(--line_color);
+    letter-spacing: 2px;
+    transition: all 0.3s ease;
+    display: block;
+  }
+
+  .button__text {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+  }
+
+  .button::before,
+  .button::after,
+  .button__text::before,
+  .button__text::after {
+    content: '';
+    position: absolute;
+    height: 3px;
+    border-radius: 2px;
+    background: var(--line_color);
+    transition: all 0.5s ease;
+  }
+
+  .button::before {
+    top: 0;
+    left: 54px;
+    width: calc(100% - 56px * 2 - 16px);
+  }
+
+  .button::after {
+    top: 0;
+    right: 54px;
+    width: 8px;
+  }
+
+  .button__text::before {
+    bottom: 0;
+    right: 54px;
+    width: calc(100% - 56px * 2 - 16px);
+  }
+
+  .button__text::after {
+    bottom: 0;
+    left: 54px;
+    width: 8px;
+  }
+
+  .button__line {
+    position: absolute;
+    top: 0;
+    width: 56px;
+    height: 100%;
+    overflow: hidden;
+  }
+
+  .button__line::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    width: 150%;
+    height: 100%;
+    box-sizing: border-box;
+    border-radius: 300px;
+    border: solid 3px var(--line_color);
+  }
+
+  .button__line:nth-child(1),
+  .button__line:nth-child(1)::before {
+    left: 0;
+  }
+
+  .button__line:nth-child(2),
+  .button__line:nth-child(2)::before {
+    right: 0;
+  }
+
+  .button:hover {
+    letter-spacing: 6px;
+  }
+
+  .button:hover::before,
+  .button:hover .button__text::before {
+    width: 8px;
+  }
+
+  .button:hover::after,
+  .button:hover .button__text::after {
+    width: calc(100% - 56px * 2 - 16px);
+  }
+
+  .button__drow1,
+  .button__drow2 {
+    position: absolute;
+    z-index: -1;
+    border-radius: 16px;
+    transform-origin: 16px 16px;
+  }
+
+  .button__drow1 {
+    top: -16px;
+    left: 40px;
+    width: 32px;
+    height: 0;
+    transform: rotate(30deg);
+  }
+
+  .button__drow2 {
+    top: 44px;
+    left: 77px;
+    width: 32px;
+    height: 0;
+    transform: rotate(-127deg);
+  }
+
+  .button__drow1::before,
+  .button__drow1::after,
+  .button__drow2::before,
+  .button__drow2::after {
+    content: '';
+    position: absolute;
+  }
+
+  .button__drow1::before {
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 32px;
+    border-radius: 16px;
+    transform-origin: 16px 16px;
+    transform: rotate(-60deg);
+  }
+
+  .button__drow1::after {
+    top: -10px;
+    left: 45px;
+    width: 0;
+    height: 32px;
+    border-radius: 16px;
+    transform-origin: 16px 16px;
+    transform: rotate(69deg);
+  }
+
+  .button__drow2::before {
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 32px;
+    border-radius: 16px;
+    transform-origin: 16px 16px;
+    transform: rotate(-146deg);
+  }
+
+  .button__drow2::after {
+    bottom: 26px;
+    left: -40px;
+    width: 0;
+    height: 32px;
+    border-radius: 16px;
+    transform-origin: 16px 16px;
+    transform: rotate(-262deg);
+  }
+
+  .button__drow1,
+  .button__drow1::before,
+  .button__drow1::after,
+  .button__drow2,
+  .button__drow2::before,
+  .button__drow2::after {
+    background: var(--back_color);
+  }
+
+  .button:hover .button__drow1 {
+    animation: drow1 ease-in 0.06s;
+    animation-fill-mode: forwards;
+  }
+
+  .button:hover .button__drow1::before {
+    animation: drow2 linear 0.08s 0.06s;
+    animation-fill-mode: forwards;
+  }
+
+  .button:hover .button__drow1::after {
+    animation: drow3 linear 0.03s 0.14s;
+    animation-fill-mode: forwards;
+  }
+
+  .button:hover .button__drow2 {
+    animation: drow4 linear 0.06s 0.2s;
+    animation-fill-mode: forwards;
+  }
+
+  .button:hover .button__drow2::before {
+    animation: drow3 linear 0.03s 0.26s;
+    animation-fill-mode: forwards;
+  }
+
+  .button:hover .button__drow2::after {
+    animation: drow5 linear 0.06s 0.32s;
+    animation-fill-mode: forwards;
+  }
+
+  @keyframes drow1 {
+    0% {
+      height: 0;
+    }
+    100% {
+      height: 100px;
+    }
+  }
+
+  @keyframes drow2 {
+    0% {
+      width: 0;
+      opacity: 0;
+    }
+    10% {
+      opacity: 0;
+    }
+    11% {
+      opacity: 1;
+    }
+    100% {
+      width: 120px;
+    }
+  }
+
+  @keyframes drow3 {
+    0% {
+      width: 0;
+    }
+    100% {
+      width: 80px;
+    }
+  }
+
+  @keyframes drow4 {
+    0% {
+      height: 0;
+    }
+    100% {
+      height: 120px;
+    }
+  }
+
+  @keyframes drow5 {
+    0% {
+      width: 0;
+    }
+    100% {
+      width: 124px;
+    }
+  }
+`;
 
 export default function AnimatedStartButton() {
-    return (
-        <div className={styles.btnWrapper}>
-            <a href="#upload" className={styles.btn}>
-                <svg
-                    className={styles.btnSvg}
-                    xmlns="http://www.w3.org/2000/svg"
-                    viewBox="0 0 24 24"
-                >
-                    <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        d="M9.813 15.904 9 18.75l-.813-2.846a4.5 4.5 0 0 0-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 0 0 3.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 0 0 3.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 0 0-3.09 3.09ZM18.259 8.715 18 9.75l-.259-1.035a3.375 3.375 0 0 0-2.455-2.456L14.25 6l1.036-.259a3.375 3.375 0 0 0 2.455-2.456L18 2.25l.259 1.035a3.375 3.375 0 0 0 2.456 2.456L21.75 6l-1.035.259a3.375 3.375 0 0 0-2.456 2.456ZM16.894 20.567 16.5 21.75l-.394-1.183a2.25 2.25 0 0 0-1.423-1.423L13.5 18.75l1.183-.394a2.25 2.25 0 0 0 1.423-1.423l.394-1.183.394 1.183a2.25 2.25 0 0 0 1.423 1.423l1.183.394-1.183.394a2.25 2.25 0 0 0-1.423 1.423Z"
-                    />
-                </svg>
-                <div className={styles.txtWrapper}>
-                    <div className={styles.txt1}>
-                        <span className={styles.btnLetter}>M</span>
-                        <span className={styles.btnLetter}>u</span>
-                        <span className={styles.btnLetter}>l</span>
-                        <span className={styles.btnLetter}>a</span>
-                        <span className={styles.btnLetter}>i</span>
-                        <span className={styles.btnLetter}> </span>
-                        <span className={styles.btnLetter}>S</span>
-                        <span className={styles.btnLetter}>e</span>
-                        <span className={styles.btnLetter}>k</span>
-                        <span className={styles.btnLetter}>a</span>
-                        <span className={styles.btnLetter}>r</span>
-                        <span className={styles.btnLetter}>a</span>
-                        <span className={styles.btnLetter}>n</span>
-                        <span className={styles.btnLetter}>g</span>
-                    </div>
-                    <div className={styles.txt2}>
-                        <span className={styles.btnLetter}>M</span>
-                        <span className={styles.btnLetter}>e</span>
-                        <span className={styles.btnLetter}>m</span>
-                        <span className={styles.btnLetter}>p</span>
-                        <span className={styles.btnLetter}>r</span>
-                        <span className={styles.btnLetter}>o</span>
-                        <span className={styles.btnLetter}>s</span>
-                        <span className={styles.btnLetter}>e</span>
-                        <span className={styles.btnLetter}>s</span>
-                        <span className={styles.btnLetter}>.</span>
-                        <span className={styles.btnLetter}>.</span>
-                        <span className={styles.btnLetter}>.</span>
-                    </div>
-                </div>
-            </a>
-        </div>
-    );
+  return (
+    <StyledWrapper>
+      <a href="#upload" className="button type--C">
+        <div className="button__line" />
+        <div className="button__line" />
+        <span className="button__text">Mulai Sekarang</span>
+        <div className="button__drow1" />
+        <div className="button__drow2" />
+      </a>
+    </StyledWrapper>
+  );
 }
