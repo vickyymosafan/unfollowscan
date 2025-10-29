@@ -27,4 +27,4 @@ export type {
   UseInstagramAnalysisReturn,
   FileType,
   AnalysisTab,
-} from '@/lib/types/hooks';
+} from '@/types/hooks';
