@@ -1,14 +1,14 @@
-import React from 'react';
+import type { ReactNode } from 'react';
 import styled from 'styled-components';
 
 interface SwapButtonProps {
   onClick?: () => void;
   disabled?: boolean;
-  children: React.ReactNode;
+  children: ReactNode;
   ariaLabel?: string;
 }
 
-const SwapButton: React.FC<SwapButtonProps> = ({ onClick, disabled, children, ariaLabel }) => {
+const SwapButton = ({ onClick, disabled, children, ariaLabel }: SwapButtonProps) => {
   return (
     <StyledWrapper>
       <button onClick={onClick} disabled={disabled} aria-label={ariaLabel}>

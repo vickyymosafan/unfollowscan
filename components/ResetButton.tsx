@@ -1,4 +1,3 @@
-import React from 'react';
 import styled from 'styled-components';
 
 interface ResetButtonProps {
@@ -6,7 +5,7 @@ interface ResetButtonProps {
   disabled?: boolean;
 }
 
-const ResetButton: React.FC<ResetButtonProps> = ({ onClick, disabled = false }) => {
+const ResetButton = ({ onClick, disabled = false }: ResetButtonProps) => {
   return (
     <StyledWrapper>
       <button 

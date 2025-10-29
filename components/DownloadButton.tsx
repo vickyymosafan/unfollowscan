@@ -1,4 +1,3 @@
-import React from 'react';
 import styled from 'styled-components';
 
 interface DownloadButtonProps {
@@ -6,7 +5,7 @@ interface DownloadButtonProps {
     ariaLabel?: string;
 }
 
-const DownloadButton: React.FC<DownloadButtonProps> = ({ onClick, ariaLabel = 'Download' }) => {
+const DownloadButton = ({ onClick, ariaLabel = 'Download' }: DownloadButtonProps) => {
     return (
         <StyledWrapper>
             <button className="Btn" onClick={onClick} aria-label={ariaLabel}>

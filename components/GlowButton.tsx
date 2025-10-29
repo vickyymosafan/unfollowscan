@@ -1,14 +1,14 @@
-import React from 'react';
+import type { ReactNode } from 'react';
 import styled from 'styled-components';
 
 interface GlowButtonProps {
     onClick?: () => void;
     disabled?: boolean;
-    children: React.ReactNode;
+    children: ReactNode;
     ariaLabel?: string;
 }
 
-const GlowButton: React.FC<GlowButtonProps> = ({ onClick, disabled, children, ariaLabel }) => {
+const GlowButton = ({ onClick, disabled, children, ariaLabel }: GlowButtonProps) => {
     return (
         <StyledWrapper>
             <button onClick={onClick} disabled={disabled} aria-label={ariaLabel}>
