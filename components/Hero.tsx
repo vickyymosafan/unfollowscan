@@ -1,5 +1,6 @@
 import AnimatedGuideButton from './AnimatedGuideButton';
 import AnimatedStartButton from './AnimatedStartButton';
+import PrivacyBadge from './PrivacyBadge';
 import { CheckmarkIcon } from '@/lib/icons';
 
 export default function Hero() {
@@ -13,10 +14,9 @@ export default function Hero() {
     <section className="relative overflow-hidden py-12 sm:py-16 lg:py-20">
       <div className="container mx-auto px-4">
         <div className="max-w-4xl mx-auto text-center">
-          {/* Badge */}
-          <div className="inline-flex items-center gap-2 px-3 py-1.5 sm:px-4 sm:py-2 bg-white rounded-full border border-shark-300 mb-4 sm:mb-6 shadow-sm">
-            <span className="w-2 h-2 bg-shark-700 rounded-full animate-pulse"></span>
-            <span className="text-xs sm:text-sm text-shark-700">100% Privasi Terjamin</span>
+          {/* Privacy Badge */}
+          <div className="mb-4 sm:mb-6">
+            <PrivacyBadge />
           </div>
 
           {/* Main Heading */}
