@@ -4,6 +4,11 @@ import styled from 'styled-components';
 
 const StyledWrapper = styled.div`
   display: inline-block;
+  width: 100%;
+
+  @media (min-width: 640px) {
+    width: auto;
+  }
 
   .type--C {
     --line_color: #00135c;
@@ -12,16 +17,27 @@ const StyledWrapper = styled.div`
 
   .button {
     position: relative;
-    z-index: 0;
-    width: 280px;
+    z-index: 1;
+    width: 100%;
+    max-width: 280px;
     height: 56px;
+    margin: 0 auto;
     text-decoration: none;
-    font-size: 14px;
+    font-size: 13px;
     font-weight: bold;
     color: var(--line_color);
-    letter-spacing: 2px;
+    letter-spacing: 1.5px;
     transition: all 0.3s ease;
     display: block;
+    overflow: hidden;
+  }
+
+  @media (min-width: 640px) {
+    .button {
+      width: 280px;
+      font-size: 14px;
+      letter-spacing: 2px;
+    }
   }
 
   .button__text {
@@ -30,6 +46,8 @@ const StyledWrapper = styled.div`
     align-items: center;
     width: 100%;
     height: 100%;
+    position: relative;
+    z-index: 1;
   }
 
   .button::before,
@@ -114,7 +132,7 @@ const StyledWrapper = styled.div`
   .button__drow1,
   .button__drow2 {
     position: absolute;
-    z-index: -1;
+    z-index: 0;
     border-radius: 16px;
     transform-origin: 16px 16px;
   }

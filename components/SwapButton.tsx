@@ -24,18 +24,28 @@ const StyledWrapper = styled.div`
     margin: 0;
     height: auto;
     background: transparent;
-    padding: 0.8em 2em;
+    padding: 0.8em 1.5em;
     border: none;
     cursor: pointer;
     position: relative;
     text-transform: uppercase;
-    letter-spacing: 3px;
-    font-size: 16px;
+    letter-spacing: 2px;
+    font-size: 14px;
     font-weight: bold;
     display: flex;
     align-items: center;
     justify-content: center;
     gap: 0.5em;
+    width: 100%;
+  }
+
+  @media (min-width: 640px) {
+    button {
+      padding: 0.8em 2em;
+      letter-spacing: 3px;
+      font-size: 16px;
+      width: auto;
+    }
   }
 
   .button-content {

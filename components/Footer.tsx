@@ -3,18 +3,18 @@ export default function Footer() {
 
   return (
     <footer className="bg-shark-950 text-shark-50">
-      <div className="container mx-auto px-4 py-8">
+      <div className="container mx-auto px-4 py-6 sm:py-8 lg:py-10">
         <div className="max-w-4xl mx-auto">
           {/* Main Content */}
-          <div className="text-center mb-6">
-            <h3 className="text-lg font-semibold mb-2">Cek Siapa yang Tidak Follow Balik</h3>
-            <p className="text-sm text-shark-400">
+          <div className="text-center mb-4 sm:mb-6">
+            <h3 className="text-base sm:text-lg font-semibold mb-2">Cek Siapa yang Tidak Follow Balik</h3>
+            <p className="text-xs sm:text-sm text-shark-400">
               Tool gratis untuk menganalisis followers dan following Instagram Anda
             </p>
           </div>
 
           {/* Social Media Links */}
-          <div className="flex justify-center items-center gap-6 mb-6">
+          <div className="flex flex-wrap justify-center items-center gap-3 sm:gap-4 lg:gap-6 mb-4 sm:mb-6">
             <a
               href="https://github.com/vickyymosafan"
               target="_blank"
@@ -89,11 +89,11 @@ export default function Footer() {
           </div>
 
           {/* Divider */}
-          <div className="border-t border-shark-800 mb-4"></div>
+          <div className="border-t border-shark-800 mb-3 sm:mb-4"></div>
 
           {/* Copyright */}
-          <div className="text-center">
-            <p className="text-sm text-shark-400">
+          <div className="text-center px-4">
+            <p className="text-xs sm:text-sm text-shark-400">
               © {currentYear} Cek Siapa yang Tidak Follow Balik. Dibuat oleh{' '}
               <a
                 href="https://www.linkedin.com/in/vickymosafan/"

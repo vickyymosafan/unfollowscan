@@ -77,14 +77,14 @@ export default function ResultTabs({ activeTab, onTabChange, counts }: ResultTab
               tabIndex={isActive ? 0 : -1}
               onClick={() => onTabChange(tab.id)}
               onKeyDown={(e) => handleKeyDown(e, index)}
-              className={`flex-1 px-4 py-3 rounded-xl font-medium transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-shark-700 focus:ring-offset-2 ${
+              className={`flex-1 px-3 sm:px-4 lg:px-5 py-2.5 sm:py-3 rounded-lg sm:rounded-xl font-medium transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-shark-700 focus:ring-offset-2 ${
                 isActive
-                  ? 'bg-shark-950 text-shark-50 shadow-lg scale-105'
+                  ? 'bg-shark-950 text-shark-50 shadow-lg sm:scale-105'
                   : 'bg-transparent text-shark-700 hover:bg-shark-100 hover:text-shark-950'
               }`}
             >
               <div className="flex flex-col sm:flex-row items-center justify-center gap-1 sm:gap-2">
-                <span className="text-sm sm:text-base">{tab.label}</span>
+                <span className="text-xs sm:text-sm lg:text-base">{tab.label}</span>
                 <span className={`inline-flex items-center justify-center min-w-[2rem] px-2 py-0.5 rounded-full text-xs font-semibold ${
                   isActive
                     ? 'bg-shark-700 text-shark-50'

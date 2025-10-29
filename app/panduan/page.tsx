@@ -7,28 +7,28 @@ export default function PanduanPage() {
     <div className="min-h-screen bg-[#F7F7F8]">
       <Header />
 
-      <main className="container mx-auto px-4 py-12 max-w-4xl">
-        <div className="bg-white rounded-2xl p-8 border border-[#DADDE1]">
-          <h1 className="text-3xl font-bold text-[#111315] mb-6">
+      <main className="container mx-auto px-4 py-8 sm:py-12 max-w-4xl">
+        <div className="bg-white rounded-2xl p-4 sm:p-6 lg:p-8 border border-[#DADDE1]">
+          <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-[#111315] mb-4 sm:mb-6">
             Cara ekspor data Instagram
           </h1>
 
-          <div className="prose prose-lg max-w-none">
-            <p className="text-gray-700 mb-6">
+          <div className="prose prose-sm sm:prose-base lg:prose-lg max-w-none">
+            <p className="text-gray-700 mb-4 sm:mb-6 text-sm sm:text-base">
               Ikuti langkah-langkah berikut untuk mengekspor data followers dan following dari Instagram:
             </p>
 
-            <div className="space-y-8">
+            <div className="space-y-6 sm:space-y-8">
               {/* Step 1 */}
               <div className="space-y-3">
-                <p className="text-gray-700 font-semibold">1. Buka aplikasi Instagram atau website Instagram.com dan masuk ke akun Kamu</p>
+                <p className="text-gray-700 font-semibold text-sm sm:text-base">1. Buka aplikasi Instagram atau website Instagram.com dan masuk ke akun Kamu</p>
               </div>
 
               {/* Step 2 */}
               <div className="space-y-3">
-                <p className="text-gray-700 font-semibold">2. Klik ikon profil, lalu klik menu (☰) di pojok kanan atas, pilih "Pengaturan dan privasi" atau "Settings and privacy"</p>
+                <p className="text-gray-700 font-semibold text-sm sm:text-base">2. Klik ikon profil, lalu klik menu (☰) di pojok kanan atas, pilih "Pengaturan dan privasi" atau "Settings and privacy"</p>
                 <div className="flex justify-center">
-                  <div className="border border-gray-200 rounded-lg overflow-hidden max-w-xs sm:max-w-sm">
+                  <div className="border border-gray-200 rounded-lg overflow-hidden max-w-xs sm:max-w-sm lg:max-w-md">
                     <Image
                       src="/[2] Setting and Privacy.webp"
                       alt="Settings and Privacy"
@@ -239,8 +239,8 @@ export default function PanduanPage() {
 
               {/* Step 14 */}
               <div className="space-y-3">
-                <p className="text-gray-700 font-semibold">14. <strong>Extract file ZIP</strong> yang sudah didownload:</p>
-                <ul className="ml-6 mt-2 space-y-1 list-disc text-gray-700">
+                <p className="text-gray-700 font-semibold text-sm sm:text-base">14. <strong>Extract file ZIP</strong> yang sudah didownload:</p>
+                <ul className="ml-4 sm:ml-6 mt-2 space-y-1 list-disc text-gray-700 text-sm sm:text-base">
                   <li>Klik kanan file ZIP → Extract All atau Extract Here</li>
                   <li>Buka folder hasil extract</li>
                   <li>Cari dan buka folder <strong>"connections"</strong></li>
@@ -250,8 +250,8 @@ export default function PanduanPage() {
 
               {/* Step 15 */}
               <div className="space-y-3">
-                <p className="text-gray-700 font-semibold">15. Di dalam folder <strong>followers_and_following</strong>, Kamu akan melihat beberapa file. Pilih dan upload <strong>2 file ini saja</strong>:</p>
-                <ul className="ml-6 mt-2 space-y-1 list-disc text-gray-700">
+                <p className="text-gray-700 font-semibold text-sm sm:text-base">15. Di dalam folder <strong>followers_and_following</strong>, Kamu akan melihat beberapa file. Pilih dan upload <strong>2 file ini saja</strong>:</p>
+                <ul className="ml-4 sm:ml-6 mt-2 space-y-1 list-disc text-gray-700 text-sm sm:text-base">
                   <li><strong>followers_1.json</strong> (file data followers Kamu)</li>
                   <li><strong>following.json</strong> (file data following Kamu)</li>
                 </ul>
@@ -259,15 +259,15 @@ export default function PanduanPage() {
 
               {/* Step 16 */}
               <div className="space-y-3">
-                <p className="text-gray-700 font-semibold">16. Upload kedua file tersebut ke website ini dan klik tombol "Proses" untuk melihat hasilnya</p>
+                <p className="text-gray-700 font-semibold text-sm sm:text-base">16. Upload kedua file tersebut ke website ini dan klik tombol "Proses" untuk melihat hasilnya</p>
               </div>
             </div>
 
-            <div className="mt-8 p-4 bg-blue-50 border border-blue-200 rounded-lg">
-              <h2 className="text-lg font-semibold text-[#111315] mb-2">
+            <div className="mt-6 sm:mt-8 p-3 sm:p-4 bg-blue-50 border border-blue-200 rounded-lg">
+              <h2 className="text-base sm:text-lg font-semibold text-[#111315] mb-2">
                 📌 Catatan Penting
               </h2>
-              <ul className="space-y-2 text-sm text-gray-700 list-disc list-inside">
+              <ul className="space-y-2 text-xs sm:text-sm text-gray-700 list-disc list-inside">
                 <li>
                   <strong>Format JSON direkomendasikan</strong> karena lebih mudah diproses dan lebih akurat
                 </li>
@@ -286,11 +286,11 @@ export default function PanduanPage() {
               </ul>
             </div>
 
-            <div className="mt-6 p-4 bg-yellow-50 border border-yellow-200 rounded-lg">
-              <h2 className="text-lg font-semibold text-[#111315] mb-2">
+            <div className="mt-4 sm:mt-6 p-3 sm:p-4 bg-yellow-50 border border-yellow-200 rounded-lg">
+              <h2 className="text-base sm:text-lg font-semibold text-[#111315] mb-2">
                 ⚠️ Kesalahan Umum
               </h2>
-              <ul className="space-y-2 text-sm text-gray-700 list-disc list-inside">
+              <ul className="space-y-2 text-xs sm:text-sm text-gray-700 list-disc list-inside">
                 <li>
                   <strong>Jangan upload file ZIP langsung</strong> - Extract dulu file ZIP-nya
                 </li>
@@ -303,10 +303,10 @@ export default function PanduanPage() {
               </ul>
             </div>
 
-            <div className="mt-6 text-center">
+            <div className="mt-6 sm:mt-8 text-center">
               <a
                 href="/"
-                className="inline-block bg-[#111315] text-[#F7F7F8] rounded-lg px-6 py-3 hover:opacity-90 focus:outline-none focus:ring-2 focus:ring-[#111315] focus:ring-offset-2"
+                className="inline-block bg-[#111315] text-[#F7F7F8] rounded-lg px-5 py-2.5 sm:px-6 sm:py-3 text-sm sm:text-base hover:opacity-90 focus:outline-none focus:ring-2 focus:ring-[#111315] focus:ring-offset-2 transition-opacity"
               >
                 Kembali ke Beranda
               </a>

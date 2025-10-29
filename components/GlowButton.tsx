@@ -24,9 +24,9 @@ const StyledWrapper = styled.div`
     --glow-spread-color: rgba(177, 177, 177, 0.5);
     --btn-color: #5d5d5d;
     border: .25em solid var(--glow-color);
-    padding: 1em 3em;
+    padding: 1em 2em;
     color: #f6f6f6;
-    font-size: 15px;
+    font-size: 14px;
     font-weight: bold;
     background-color: var(--btn-color);
     border-radius: 1em;
@@ -40,7 +40,17 @@ const StyledWrapper = styled.div`
     cursor: pointer;
     display: flex;
     align-items: center;
+    justify-content: center;
     gap: 0.5em;
+    width: 100%;
+  }
+
+  @media (min-width: 640px) {
+    button {
+      padding: 1em 3em;
+      font-size: 15px;
+      width: auto;
+    }
   }
 
   button::after {
