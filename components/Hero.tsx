@@ -1,7 +1,14 @@
 import AnimatedGuideButton from './AnimatedGuideButton';
 import AnimatedStartButton from './AnimatedStartButton';
+import { CheckmarkIcon } from '@/lib/icons';
 
 export default function Hero() {
+  const trustIndicators = [
+    { label: 'Tanpa Login' },
+    { label: 'Gratis Selamanya' },
+    { label: 'Data Aman' },
+  ];
+
   return (
     <section className="relative overflow-hidden py-12 sm:py-16 lg:py-20">
       <div className="container mx-auto px-4">
@@ -34,24 +41,12 @@ export default function Hero() {
 
           {/* Trust Indicators */}
           <div className="mt-6 sm:mt-8 lg:mt-10 flex flex-wrap justify-center items-center gap-3 sm:gap-4 lg:gap-6 text-xs sm:text-sm text-shark-600 px-4">
-            <div className="flex items-center gap-2">
-              <svg className="w-5 h-5 text-shark-700" fill="currentColor" viewBox="0 0 20 20">
-                <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
-              </svg>
-              <span>Tanpa Login</span>
-            </div>
-            <div className="flex items-center gap-2">
-              <svg className="w-5 h-5 text-shark-700" fill="currentColor" viewBox="0 0 20 20">
-                <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
-              </svg>
-              <span>Gratis Selamanya</span>
-            </div>
-            <div className="flex items-center gap-2">
-              <svg className="w-5 h-5 text-shark-700" fill="currentColor" viewBox="0 0 20 20">
-                <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
-              </svg>
-              <span>Data Aman</span>
-            </div>
+            {trustIndicators.map((indicator) => (
+              <div key={indicator.label} className="flex items-center gap-2">
+                <CheckmarkIcon className="w-5 h-5 text-shark-700" />
+                <span>{indicator.label}</span>
+              </div>
+            ))}
           </div>
         </div>
       </div>

@@ -2,6 +2,7 @@
 
 import { KeyboardEvent, useRef, useEffect } from 'react';
 import { ResultTabsProps } from '@/lib/types';
+import { formatNumber } from '@/lib/utils/format';
 
 type TabType = 'tidak-follow-balik' | 'fans' | 'mutual';
 
@@ -15,11 +16,6 @@ export default function ResultTabs({ activeTab, onTabChange, counts }: ResultTab
   ];
 
   const currentIndex = tabs.findIndex((tab) => tab.id === activeTab);
-
-  // Format number with Indonesian locale
-  const formatNumber = (num: number): string => {
-    return num.toLocaleString('id-ID');
-  };
 
   // Handle keyboard navigation
   const handleKeyDown = (e: KeyboardEvent<HTMLButtonElement>, index: number) => {

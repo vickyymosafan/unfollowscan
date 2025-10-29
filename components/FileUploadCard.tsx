@@ -3,6 +3,7 @@
 import { useState, useRef, ChangeEvent, DragEvent } from 'react';
 import { FileUploadCardProps } from '@/lib/types';
 import { validateFileType } from '@/lib/utils/file-reader';
+import { UploadIcon, LightningIcon, SwapIcon, ArrowDownIcon } from '@/lib/icons';
 import GlowButton from './GlowButton';
 import SwapButton from './SwapButton';
 import ResetButton from './ResetButton';
@@ -118,9 +119,7 @@ export default function FileUploadCard({
     <div id="upload" className="bg-white rounded-2xl sm:rounded-3xl p-4 sm:p-6 lg:p-8 border border-shark-300 shadow-xl">
       <div className="flex items-center gap-2 sm:gap-3 mb-4 sm:mb-6">
         <div className="w-8 h-8 sm:w-10 sm:h-10 lg:w-12 lg:h-12 bg-shark-700 rounded-lg sm:rounded-xl flex items-center justify-center">
-          <svg className="w-5 h-5 sm:w-6 sm:h-6 text-shark-50" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" />
-          </svg>
+          <UploadIcon className="w-5 h-5 sm:w-6 sm:h-6 text-shark-50" />
         </div>
         <h2 className="text-lg sm:text-xl lg:text-2xl font-bold text-shark-950">Unggah File Instagram</h2>
       </div>
@@ -155,9 +154,7 @@ export default function FileUploadCard({
 
             {/* Upload Icon */}
             <div className="inline-flex items-center justify-center w-12 h-12 sm:w-14 sm:h-14 lg:w-16 lg:h-16 bg-shark-200 rounded-xl sm:rounded-2xl mb-3 sm:mb-4">
-              <svg className="w-6 h-6 sm:w-7 sm:h-7 lg:w-8 lg:h-8 text-shark-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" />
-              </svg>
+              <UploadIcon className="w-6 h-6 sm:w-7 sm:h-7 lg:w-8 lg:h-8 text-shark-700" />
             </div>
 
             <p className="text-sm sm:text-base lg:text-lg font-medium text-shark-800 mb-1">
@@ -221,9 +218,7 @@ export default function FileUploadCard({
 
             {/* Upload Icon */}
             <div className="inline-flex items-center justify-center w-12 h-12 sm:w-14 sm:h-14 lg:w-16 lg:h-16 bg-shark-200 rounded-xl sm:rounded-2xl mb-3 sm:mb-4">
-              <svg className="w-6 h-6 sm:w-7 sm:h-7 lg:w-8 lg:h-8 text-shark-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" />
-              </svg>
+              <UploadIcon className="w-6 h-6 sm:w-7 sm:h-7 lg:w-8 lg:h-8 text-shark-700" />
             </div>
 
             <p className="text-sm sm:text-base lg:text-lg font-medium text-shark-800 mb-1">
@@ -279,9 +274,7 @@ export default function FileUploadCard({
             </div>
             {/* Animated arrow pointing down */}
             <div className="flex flex-col items-center gap-1 animate-bounce mt-1 sm:mt-2">
-              <svg className="w-5 h-5 sm:w-6 sm:h-6 text-shark-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
-              </svg>
+              <ArrowDownIcon className="w-5 h-5 sm:w-6 sm:h-6 text-shark-700" />
               <span className="text-xs sm:text-sm text-shark-700 font-medium">Lihat hasil di bawah</span>
             </div>
           </div>
@@ -296,9 +289,7 @@ export default function FileUploadCard({
             disabled={!canProcess}
             ariaLabel="Proses file"
           >
-            <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
-            </svg>
+            <LightningIcon />
             Proses
           </GlowButton>
         </div>
@@ -309,9 +300,7 @@ export default function FileUploadCard({
             disabled={followersFiles.length === 0 && followingFiles.length === 0}
             ariaLabel="Tukar posisi file"
           >
-            <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 16V4m0 0L3 8m4-4l4 4m6 0v12m0 0l4-4m-4 4l-4-4" />
-            </svg>
+            <SwapIcon />
             Tukar
           </SwapButton>
         </div>
