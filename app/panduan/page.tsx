@@ -1,14 +1,17 @@
+'use client';
+
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
+import PageWithBackground from '@/components/PageWithBackground';
 import Image from 'next/image';
 
 export default function PanduanPage() {
   return (
-    <div className="min-h-screen bg-[#F7F7F8]">
+    <PageWithBackground>
       <Header />
 
       <main className="container mx-auto px-4 py-8 sm:py-12 max-w-4xl">
-        <div className="bg-white rounded-2xl p-4 sm:p-6 lg:p-8 border border-[#DADDE1]">
+        <div className="bg-[#ffffff54] rounded-2xl p-4 sm:p-6 lg:p-8 border border-[#DADDE1]">
           <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-[#111315] mb-4 sm:mb-6">
             Cara ekspor data Instagram
           </h1>
@@ -316,6 +319,6 @@ export default function PanduanPage() {
       </main>
 
       <Footer />
-    </div>
+    </PageWithBackground>
   );
 }
