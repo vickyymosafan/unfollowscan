@@ -4,6 +4,7 @@ import { useState, useMemo, useEffect } from 'react';
 import { ResultTableProps } from '@/lib/types';
 import { generateCSV, downloadCSV } from '@/lib/utils/csv-generator';
 import DownloadButton from './DownloadButton';
+import SearchInput from './SearchInput';
 
 export default function ResultTable({ data, category }: ResultTableProps) {
   const [searchQuery, setSearchQuery] = useState('');
@@ -75,25 +76,11 @@ export default function ResultTable({ data, category }: ResultTableProps) {
       {/* Top Section: Search and CSV Download */}
       <div className="flex flex-col sm:flex-row gap-4 items-start sm:items-center justify-between">
         {/* Search Input */}
-        <div className="relative w-full sm:w-auto sm:flex-1 max-w-md">
-          <label htmlFor="search-username" className="sr-only">
-            Cari username
-          </label>
-          <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
-            <svg className="w-5 h-5 text-shark-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-            </svg>
-          </div>
-          <input
-            id="search-username"
-            type="text"
-            placeholder="Cari username..."
-            value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
-            className="w-full rounded-xl border-2 border-shark-300 pl-12 pr-4 py-3 focus:outline-none focus:ring-2 focus:ring-shark-600 focus:border-shark-600 transition-all"
-            aria-label="Cari username"
-          />
-        </div>
+        <SearchInput
+          value={searchQuery}
+          onChange={setSearchQuery}
+          placeholder="Cari username..."
+        />
 
         {/* CSV Download Button */}
         <DownloadButton onClick={handleDownloadCSV} ariaLabel="Unduh CSV" />
