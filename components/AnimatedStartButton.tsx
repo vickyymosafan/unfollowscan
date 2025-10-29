@@ -5,6 +5,7 @@ import styled from 'styled-components';
 const StyledWrapper = styled.div`
   display: inline-block;
   width: 100%;
+  overflow: hidden;
 
   @media (min-width: 640px) {
     width: auto;
