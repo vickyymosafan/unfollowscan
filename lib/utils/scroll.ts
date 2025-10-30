@@ -1,3 +1,5 @@
+import { easeInOutCubic } from './easing';
+
 /**
  * Smooth scroll to element with easing animation
  * @param element - Target element to scroll to
@@ -15,11 +17,6 @@ export const smoothScrollToElement = (
   const startPosition = window.pageYOffset;
   const distance = targetPosition - startPosition;
   let start: number | null = null;
-
-  // Easing function for smooth animation
-  const easeInOutCubic = (t: number): number => {
-    return t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
-  };
 
   const animation = (currentTime: number) => {
     if (start === null) start = currentTime;
@@ -44,10 +41,6 @@ export const smoothScrollToElement = (
 export const scrollToTop = (duration: number = 800): void => {
   const startPosition = window.pageYOffset;
   let start: number | null = null;
-
-  const easeInOutCubic = (t: number): number => {
-    return t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
-  };
 
   const animation = (currentTime: number) => {
     if (start === null) start = currentTime;
