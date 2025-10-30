@@ -30,18 +30,23 @@ export function useTablePagination({
   const [currentPage, setCurrentPage] = useState(DEFAULT_START_PAGE);
 
   const totalPages = Math.ceil(totalItems / itemsPerPage);
-  const startIndex = (currentPage - 1) * itemsPerPage;
+  
+  // Auto-reset to page 1 if current page exceeds total pages
+  // This handles the case when totalItems changes
+  const validCurrentPage = currentPage > totalPages && totalPages > 0 ? DEFAULT_START_PAGE : currentPage;
+  
+  const startIndex = (validCurrentPage - 1) * itemsPerPage;
   const endIndex = startIndex + itemsPerPage;
 
   const goToNextPage = () => {
-    if (currentPage < totalPages) {
-      setCurrentPage(currentPage + 1);
+    if (validCurrentPage < totalPages) {
+      setCurrentPage(validCurrentPage + 1);
     }
   };
 
   const goToPreviousPage = () => {
-    if (currentPage > 1) {
-      setCurrentPage(currentPage - 1);
+    if (validCurrentPage > 1) {
+      setCurrentPage(validCurrentPage - 1);
     }
   };
 
@@ -55,13 +60,15 @@ export function useTablePagination({
     };
   }, [startIndex, endIndex]);
 
-  // Reset to page 1 when totalItems changes
+  // Reset to page 1 when totalItems changes (using derived state instead of effect)
   useEffect(() => {
-    setCurrentPage(DEFAULT_START_PAGE);
-  }, [totalItems]);
+    if (validCurrentPage !== currentPage) {
+      setCurrentPage(validCurrentPage);
+    }
+  }, [validCurrentPage, currentPage]);
 
   return {
-    currentPage,
+    currentPage: validCurrentPage,
     totalPages,
     startIndex,
     endIndex,
